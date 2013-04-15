@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>滚动视觉差示例</title>
+        <style>
+            *{
+                padding:0;
+                margin:0
+            }
+            body{
+                text-align:center;
+                background-attachment:fixed;
+            }
+            #main{
+                width: 1280px;
+                margin:auto
+            }
+            .header{
+                background:#fff;
+                padding: 10px 0
+            }
+            .bg-attachment{
+                background:url(img/website_01.png) center center no-repeat;
+                box-shadow:0 7px 18px #000000 inset,0 -7px 18px #000000 inset;
+                -webkit-box-shadow:0 7px 18px #000000 inset,0 -7px 18px #000000 inset;
+                -moz-box-shadow: 0 7px 18px #000000 inset,0 -7px 18px #000000 inset;
+                -o-box-shadow: 0 7px 18px #000000 inset,0 -7px 18px #000000 inset;
+                -ms-box-shadow: 0 7px 18px #000000 inset,0 -7px 18px #000000 inset;
+                background-attachment:fixed;
+            }
+            .bg-attachment .shadow{
+                width:80%;
+                height:700px;
+                overflow:hidden;
+                margin:auto;
+            }
+            .div2{
+                background:url(img/website_02.png) center center no-repeat;
+                background-attachment:fixed;
+            }
+            .div3{
+                background:url(img/website_03.png) center center no-repeat;
+                background-attachment:fixed;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="main">
+            <div class="header">
+                <img src="img/1.png">
+            </div>
+            <div class="bg-attachment">
+                <div class="shadow"></div>
+            </div>
+            <div class="header">
+                <img src="img/2.jpg">
+            </div>
+            <div class="bg-attachment div2">
+                <div class="shadow"></div>
+            </div>
+            <div class="header">
+                <img src="img/3.jpg">
+            </div>
+            <div class="bg-attachment div3">
+                <div class="shadow"></div>
+            </div>
+        </div>
+    </body>
+</html>
