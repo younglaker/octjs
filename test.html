@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<style type="text/css">
+	#test2 {
+		position: absolute;
+		top: 60px;
+	}
+</style>
+	<div id="test"></div>
+	<div id="test2"></div>
+
+	<script type="text/javascript" src="js/Octjs.js"></script>
+	<script type="text/javascript">
+		
+		O("test").html("aaaa").html("bbb");
+		var a = O("test2").getStyleValue("top");
+		console.log(a);
+
+	</script>
+</body>
+</html>
