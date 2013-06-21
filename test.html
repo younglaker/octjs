@@ -12,13 +12,13 @@
 	}
 </style>
 	<div id="test"></div>
-	<div id="test2"></div>
+	<div id="test2" style="left: 9px;"></div>
 
 	<script type="text/javascript" src="js/Octjs.js"></script>
 	<script type="text/javascript">
 		
 		O("test").html("aaaa").html("bbb");
-		var a = O("test2").getStyleValue("top");
+		var a = O("test2").getCssValue("left");
 		console.log(a);
 
 	</script>

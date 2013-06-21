@@ -16,7 +16,7 @@
 			return this;
 		},
 
-		getStyleValue: function(property) {
+		getCssValue: function(property) {
 			var pro_val = 0;
 
 			if(document.documentElement.currentStyle) {
