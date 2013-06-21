@@ -1,15 +1,17 @@
 (function() {
-	
+
 	window.O = Oct = function(selector) {
-	    return new Oct(selector);
+	    return new O(selector);
 	};
 
-	var Oct = function(selector) {
+	Oct.version = "1.0";
+
+	var O = function(selector) {
 		this.elements = document.getElementById(selector);
 		return this;
 	};
 
-	Oct.prototype = {
+	O.prototype = {
 
 		html: function(text) {
 			this.elements.innerHTML = text;
@@ -33,5 +35,23 @@
 		}
 
 	};
+
+
+	Oct.stopBubble = function() {
+
+	  e = window.event || event;
+	  
+	  if(document.all) {
+	  	e.cancelBubble = true;
+	  }
+	  else {
+	  	e.stopPropagation();
+	  }
+
+	}
+
+	Oct.alert = function(msg) {
+		alert(msg);
+	}
 
 }());
