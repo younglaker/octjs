@@ -18,24 +18,37 @@
 			return this;
 		},
 
-		getCssValue: function(property) {
+		setCss: function(property_list) {
+
+			for (var name in property_list) {
+				this.elements.style[name] = property_list[name];
+			}
+
+			return this;
+		},
+
+		getCss: function(property) {
 			var pro_val = [];
 
-			if(document.documentElement.currentStyle) {
+			if (document.documentElement.currentStyle) {
 
 				for (var i = 0; i < arguments.length; i++){
 					pro_val.push(this.elements.currentStyle[arguments[i]]);	
 				}
 
-			} else if(window.getComputedStyle) {
+			} else if (window.getComputedStyle) {
 
 				for (var i = 0; i < arguments.length; i++){
-					pro_val.push(window.getComputedStyle(this.elements, null).getPropertyValue(arguments[i]));	
+					pro_val.push(window.getComputedStyle(this.elements, null).getPropertyValue(arguments[i]));
 				}
 
 			}
 
 			return pro_val.join(",");
+		},
+
+		a: function() {
+			console.log(arguments.length);
 		}
 
 	};
@@ -52,10 +65,10 @@
 	  	e.stopPropagation();
 	  }
 
-	}
+	};
 
 	Oct.alert = function(msg) {
 		alert(msg);
-	}
+	};
 
 }());
