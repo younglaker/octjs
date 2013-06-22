@@ -32,13 +32,13 @@
 
 			if (document.documentElement.currentStyle) {
 
-				for (var i = 0; i < arguments.length; i++){
+				for (var i in arguments){
 					pro_val.push(this.elements.currentStyle[arguments[i]]);	
 				}
 
 			} else if (window.getComputedStyle) {
 
-				for (var i = 0; i < arguments.length; i++){
+				for (var i in arguments){
 					pro_val.push(window.getComputedStyle(this.elements, null).getPropertyValue(arguments[i]));
 				}
 
