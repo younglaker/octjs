@@ -1,3 +1,12 @@
+/*
+*	OctJs JavaScript Toolkit v1.0
+*	https://github.com/younglaker/octjs
+*	Description: Contains many usual functions for web devolepment.
+*	Copyright 2013, Laker Huang
+*	Released under the MIT Licenses.
+*	Date: 2013-05-27 to one day
+*/
+
 (function() {
 
 	window.O = Oct = function(selector) {
