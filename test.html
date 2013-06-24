@@ -14,16 +14,37 @@
 		top: 60px;
 	}
 </style>
-	<div id="test"></div>
+	<div id="test" class="hi">sss</div>
+	<div id="test3" class="hi">sss</div>
 	<div id="test2" style="left: 9px;"></div>
 
 	<script type="text/javascript" src="js/jquery-1.10.1.js"></script>
 	<script type="text/javascript" src="js/Octjs.js"></script>
 	<script type="text/javascript">
 	var a = "aa nn mm";
-	console.log(a.charAt(2));
+	// console.log(a.charAt(2));
+
+	// console.dir(O(".hi"));
+	// O("#text").setCss({"color": "#f00"});
+	O(".hi").html("222");
+	O("#test2").html("333");
+
+/*	var  c = document.getElementsByTagName("div");
+	var arr = [];
+	console.dir(c[0].className);
+	for (var i = 0; i < c.length; i++) {
+		if (c[i].className == "hi") {
+	console.log(c[i].className );						
+			arr.push(c[i]);
+		}
+	}
+	console.log(arr);*/
 		
-		
+/*		var x = "    .aaa   b";
+		console.log(x.indexOf("."));
+		console.log(x.replace(/^\s+/, ""));
+		console.log(x);
+		console.log(x.replace(/^\s+/, "").split(/\s+/));*/
 	</script>
 </body>
 </html>

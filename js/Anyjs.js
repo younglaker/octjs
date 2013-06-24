@@ -1,14 +1,3 @@
-/*
- * Anyjs JavaScript Toolkit v2.8
- * http://anyjs.googlecode.com/
- * Description: Contains many usual functions for web devolepment.
- * Copyright 2010, ENimo
- * Released under the MIT Licenses.
- * http://www.anymoore.com
- *
- * Date: May 25  2010
- */
-
 function() {
   var b = window.$ = anyjs = function() {
     return new a(arguments)

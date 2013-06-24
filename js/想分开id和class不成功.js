@@ -15,14 +15,8 @@
 
 	Oct.version = "1.0";
 
-	//  selector: the elements you want.
-	//  root_id: the root's id of the elements you want.
-	//  tag: point out the specific tag of the selector. If none, it's document.
 	var Octobj = function(selector, root_id, tag) {
-		// agrs: the specific tag of the selector.
-		// type: id("#"), class(".") or tag("&")
-		var agrs, type, eles;
-		var selector_exp = /^(?:#(\w-_)+|\.(\w-_)+|(\w)+)$/;
+		var agrs, type;
 		this.elements = [];
 
 		// HANDLE: $(""), $(null), $(undefined), $(false)
@@ -37,28 +31,21 @@
 		}
 
 		tag = tag || "*";
-
-		//去掉开头的空格，再已空格串分割
-		selector = selector.replace(/^\s+/, "").split(/\s+/);
 		args = root_id.getElementsByTagName(tag);
-		// type = selector.charAt(0);
-		type = selector[0].charAt(0);
+		type = selector.charAt(0);
+		console.log(selector);
 		console.log(type);
-
-		eles = selector[0].slice(1);
 
 		if (type == ".") {
 			for (var i = 0; i < args.length; i++) {
-				if (args[i].className == eles) {
-					var a  = args[i];
-					this.elements.push(a);
-					console.log(a);
+				if (args[i].className == selector) {
+					this.elements.push(args[i]);
 				}
 			}
 		}
 
 		if (type == "#") {
-			this.elements.push(document.getElementById(eles));
+			this.elements.push(document.getElementById(selector));
 		}
 /*
 		for (var i = 0, n = args.length; i < n; i++) {
