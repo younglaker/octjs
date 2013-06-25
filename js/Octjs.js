@@ -16,13 +16,15 @@
 	Oct.version = "1.0";
 
 	//  selector: the elements you want.
-	//  root_id: the root's id of the elements you want.
+	//  root_id: the root's id of the elements'root you want.
 	//  tag: point out the specific tag of the selector. If none, it's document.
 	var Octobj = function(selector, root_id, tag) {
-		// agrs: the specific tag of the selector.
-		// type: id("#"), class(".") or tag("&")
+		// args: the array stores the elements list splited by "selector".
+		// type: id("#"), class(".") or tag("&").
+		// eles: temporary!!! store the str after"# . &"
 		var agrs, type, eles;
 		var selector_exp = /^(?:#(\w-_)+|\.(\w-_)+|(\w)+)$/;
+		// this.elements: store the elements you want and return in the end of function.
 		this.elements = [];
 
 		// HANDLE: $(""), $(null), $(undefined), $(false)
@@ -38,21 +40,19 @@
 
 		tag = tag || "*";
 
-		//去掉开头的空格，再已空格串分割
-		selector = selector.replace(/^\s+/, "").split(/\s+/);
+		// use lowercase to judge,and delete the space initio,then slpite by one or more space.
+		selector = selector.toLowerCase().replace(/^\s+/, "").split(/\s+/);
+		// if dont point out the "root_id" and "tag", "args" is all the tags in document
 		args = root_id.getElementsByTagName(tag);
 		// type = selector.charAt(0);
 		type = selector[0].charAt(0);
 		console.log(type);
-
 		eles = selector[0].slice(1);
 
 		if (type == ".") {
 			for (var i = 0; i < args.length; i++) {
 				if (args[i].className == eles) {
-					var a  = args[i];
-					this.elements.push(a);
-					console.log(a);
+					this.elements.push(args[i]);
 				}
 			}
 		}
@@ -60,16 +60,16 @@
 		if (type == "#") {
 			this.elements.push(document.getElementById(eles));
 		}
-/*
-		for (var i = 0, n = args.length; i < n; i++) {
-			for (var j = 0, k = args[i].className.split(""), l = k.length; j < l; j++) {
-				if (k[j] == selector) {
+
+		if (type == "&") {
+			for (var i = 0; i < args.length; i++) {
+				// "args[i].tagName" in browswer recognize uppercase, so base on coding habbit, use lowercase to juge,and the "eles" have be turn into lowercase("eles" come from "selector" which has been turn into lowercase)
+				if (args[i].tagName.toLowerCase() == eles) {
 					this.elements.push(args[i]);
-					break;
 				}
 			}
-		}*/
 
+		}
 
 		return this;
 	};
@@ -90,7 +90,7 @@
 
 		html: function(text) {
 			this.each(function(e) {
-	    	console.dir(e);
+	    	// console.dir(e);
 				e.innerHTML = text;
 			});
 	    return this;
