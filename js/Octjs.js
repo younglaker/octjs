@@ -46,10 +46,9 @@
 		args = root_id.getElementsByTagName(tag);
 		// type = selector.charAt(0);
 		type = selector[0].charAt(0);
-		console.log(type);
 		eles = selector[0].slice(1);
 
-		if (type == ".") {
+		if (type === ".") {
 			for (var i = 0; i < args.length; i++) {
 				if (args[i].className == eles) {
 					this.elements.push(args[i]);
@@ -57,11 +56,11 @@
 			}
 		}
 
-		if (type == "#") {
+		if (type === "#") {
 			this.elements.push(document.getElementById(eles));
 		}
 
-		if (type == "&") {
+		if (type === "&") {
 			for (var i = 0; i < args.length; i++) {
 				// "args[i].tagName" in browswer recognize uppercase, so base on coding habbit, use lowercase to juge,and the "eles" have be turn into lowercase("eles" come from "selector" which has been turn into lowercase)
 				if (args[i].tagName.toLowerCase() == eles) {
@@ -74,24 +73,20 @@
 		return this;
 	};
 
-/*	var Octobj = function(selector) {
-		this.elements = document.getElementById(selector);
-		return this;
-	};
-*/
 	Octobj.prototype = {
 
-		each: function(d) {
+		each: function(fun) {
 			for (var c = 0; c < this.elements.length; c++) {
-				d.call(this, this.elements[c])
+				// use "this.elements[]" to raplace "this" in the "fun",so it doesn't have to use "this.elements" to call the "fun".
+				fun.call(this, this.elements[c]);
 			}
+			// here, "this" is the "Octobj" object,so do all the function.
 			return this;
 		},
 
 		html: function(text) {
-			this.each(function(e) {
-	    	// console.dir(e);
-				e.innerHTML = text;
+			this.each(function(eles) {
+				eles.innerHTML = text;
 			});
 	    return this;
 		},
@@ -99,7 +94,7 @@
 		setCss: function(property_list) {
 
 			this.each(function(e) {
-				// "name" stores the index of "property_list"
+				// "name" stores the index of "property_list".
 				for (var name in property_list) {
 					this.elements.style[name] = property_list[name];
 				}
