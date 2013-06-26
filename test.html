@@ -11,12 +11,13 @@
 		height: 60px;
 		border: 1px solid #000;
 		position: absolute;
-		top: 60px;
+		top: 120px;
 	}
 </style>
-	<div id="test" class="Hi">sss</div>
+	<div id="test" class="hi">sss</div>
 	<div id="test3" class="hi">sss</div>
-	<div id="test2" style="left: 9px;"></div>
+	<p id="test4" class="hi">sss</p>
+	<div id="test2">111</div>
 
 	<script type="text/javascript" src="js/jquery-1.10.1.js"></script>
 	<script type="text/javascript" src="js/Octjs.js"></script>
@@ -27,7 +28,7 @@
 	// console.dir(O(".hi"));
 	// O("#text").setCss({"color": "#f00"});
 	// console.log(O("#test"));
-	O(".Hi").html("222");
+	O(".hi", "", "&p").html("222");
 	// O("&DIV").html("333");
 
 /*	var  c = document.getElementsByTagName("div");

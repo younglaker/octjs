@@ -9,8 +9,8 @@
 
 (function() {
 
-	window.O = Oct = function(selector) {
-	    return new Octobj(selector);
+	window.O = Oct = function(selector, root_id, tag) {
+	    return new Octobj(selector, root_id, tag);
 	};
 
 	Oct.version = "1.0";
@@ -37,8 +37,7 @@
 		} else {
 			root_id = document.body;
 		}
-
-		tag = tag || "*";
+		tag = tag.slice(1) || "*";
 
 		// use lowercase to judge,and delete the space initio,then slpite by one or more space.
 		selector = selector.replace(/^\s+/, "").split(/\s+/);
