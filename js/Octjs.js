@@ -41,7 +41,7 @@
 		tag = tag || "*";
 
 		// use lowercase to judge,and delete the space initio,then slpite by one or more space.
-		selector = selector.toLowerCase().replace(/^\s+/, "").split(/\s+/);
+		selector = selector.replace(/^\s+/, "").split(/\s+/);
 		// if dont point out the "root_id" and "tag", "args" is all the tags in document
 		args = root_id.getElementsByTagName(tag);
 		// type = selector.charAt(0);
@@ -62,8 +62,8 @@
 
 		if (type === "&") {
 			for (var i = 0; i < args.length; i++) {
-				// "args[i].tagName" in browswer recognize uppercase, so base on coding habbit, use lowercase to juge,and the "eles" have be turn into lowercase("eles" come from "selector" which has been turn into lowercase)
-				if (args[i].tagName.toLowerCase() == eles) {
+				// "args[i].tagName" in browswer recognize uppercase, so base on coding habbit, use lowercase to juge.
+				if (args[i].tagName.toLowerCase() == eles.toLowerCase()) {
 					this.elements.push(args[i]);
 				}
 			}
@@ -132,7 +132,12 @@
 		},
 
 		a: function() {
-			alert("message");;
+			alert("message");
+		},
+
+		children: function() {
+			var tem_array = this.elements;
+			console.log(tem_array);
 		}
 
 	};
