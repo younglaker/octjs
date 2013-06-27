@@ -43,7 +43,6 @@
 		selector = selector.replace(/^\s+/, "").split(/\s+/);
 		// if dont point out the "root_id" and "tag", "args" is all the tags in document
 		args = root_id.getElementsByTagName(tag);
-		// type = selector.charAt(0);
 		type = selector[0].charAt(0);
 		eles = selector[0].slice(1);
 
@@ -69,6 +68,7 @@
 
 		}
 
+		// be careful!! here return "this",not "this.elememts", so do all the function.
 		return this;
 	};
 
@@ -134,11 +134,64 @@
 			alert("message");
 		},
 
-		children: function() {
-			var tem_array = this.elements;
-			console.log(tem_array);
-		}
+		children: function(selector, level_start, level_stop) {
+			var tem_elements = this.elements;
+			this.elements = [];
+			level_start = level_start || 0;
+			level_stop = level_stop || level_start;
+			// use lowercase to judge,and delete the space initio,then slpite by one or more space.
+			selector = selector.replace(/^\s+/, "").split(/\s+/);
+			// if dont point out the "root_id" and "tag", "args" is all the tags in document
+			args = tem_elements[0].children;
+			type = selector[0].charAt(0);
+			eles = selector[0].slice(1);
 
+			if (type === ".") {
+				for (var i = 0; i < args.length; i++) {
+					if (args[i].className == eles) {
+						this.elements.push(args[i]);
+					}
+				}
+			}
+
+			if (type === "#") {
+				this.elements.push(document.getElementById(eles));
+			}
+			console.log(args);
+			if (type === "&") {
+				for (var i = 0; i <= level_stop; i++) {
+					console.log(i);
+					var args_len = args.length;
+					var tem_args = args;
+					args = [];
+					for (var j = 0; j < args_len; j++) {
+						if (tem_args[i].tagName.toLowerCase() == eles.toLowerCase()) {
+							args.push(tem_args[i]);
+						}
+
+
+
+					/*
+						console.log(args);
+						while(i >= level_start) {
+							console.log("message");
+							if (args[i].tagName.toLowerCase() == eles.toLowerCase()) {
+								this.elements.push(args[i]);
+								console.log(this.elements);
+							}
+							break;
+						}*/
+					}
+					console.log(this.elements);
+					// args = this.elements.children;
+					console.log(args);
+				}
+
+			}
+			// console.log(this.elements);
+			return this;
+		}
+    
 	};
 
 
@@ -161,5 +214,26 @@
 	Oct.alert = function(msg) {
 		alert(msg);
 	};
+
+
+	Oct.randomNum = function(start, stop, type) {
+
+		var rand_num = makeRandom(stop);
+		type = type || "float";
+
+		while(rand_num <= start){     //include the stop
+			rand_num = makeRandom(stop);
+		}
+		if(type == "int") {
+			rand_num = parseInt(rand_num);
+		}
+
+		return rand_num;
+  };
+
+
+	function makeRandom(max) {
+		return Math.random() * max;
+	}
 
 }());
