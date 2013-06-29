@@ -12,11 +12,32 @@
 		border: 1px solid #00f;
 		position: absolute;
 		top: 120px;
+		left: 300px;
 	}
 </style>
 	<div id="test" class="hi">sss</div>
 	<div id="test3" class="hi">sss</div>
 	<div id="test4" class="hi">sss <b>444</b> <span id="child">555 <span>666</span> </span> </div>
+
+	<div id="box">
+		<p>00
+			<span>10</span>
+			<b>11</b>
+		</p>
+		<span>01
+			<a href="">12</a>
+		</span>
+		<p>02
+			<p>13
+				<span>20</span>
+			</p>
+			<div>14
+				<span>21</span>
+				<label for="">22</label>
+			</div>
+		</p>
+	</div>
+
 	<div id="test2">111</div>
 
 	<script type="text/javascript" src="js/jquery-1.10.1.js"></script>
@@ -25,13 +46,22 @@
 	var a = "aa nn mm";
 	// console.log(a.charAt(2));
 
-	var b = document.getElementById("test4");
+	var b = document.getElementById("box");
 	console.dir(b);
+	 var c = $("#box").children();
+	 console.log(c);
+
+	O("#box").children("&span", 1, 1).html("lalaaaaaaaaaaaaaaaaaaaaaaa");
+
+	O("#test2").click(function(){
+		alert("message");
+	});
+	// O("#box").children().html("lala");
 
 	// console.dir(O(".hi"));
 	// O("#text").setCss({"color": "#f00"});
 	// console.log(O("#test"));
-	O("#test4", "", "&div").children("&span", 1, 1).html("888");
+	// O("#test4", "", "&div").children("&span", 1, 1).html("888");
 	// O("&DIV").html("333");
 	// console.log("num=" + Oct.randomNum(0,20));
 

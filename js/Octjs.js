@@ -37,7 +37,10 @@
 		} else {
 			root_id = document.body;
 		}
-		tag = tag.slice(1) || "*";
+		tag = tag || "*";
+		if (tag !== "*") {
+			tag = tag.slice(1);
+		}
 
 		// use lowercase to judge,and delete the space initio,then slpite by one or more space.
 		selector = selector.replace(/^\s+/, "").split(/\s+/);
@@ -114,7 +117,6 @@
 					}
 				});
 
-
 			// not IE
 			} else if (window.getComputedStyle) {
 
@@ -135,21 +137,22 @@
 		},
 
 		children: function(selector, level_start, level_stop) {
-			var tem_elements = this.elements;
+/*			var tem_elements = this.elements;
+			var tem_tags = [], tags_array = [];
 			this.elements = [];
+			tags_array = tem_elements[0].children;
+			console.log(tags_array);
 			level_start = level_start || 0;
 			level_stop = level_stop || level_start;
 			// use lowercase to judge,and delete the space initio,then slpite by one or more space.
 			selector = selector.replace(/^\s+/, "").split(/\s+/);
-			// if dont point out the "root_id" and "tag", "args" is all the tags in document
-			args = tem_elements[0].children;
 			type = selector[0].charAt(0);
 			eles = selector[0].slice(1);
 
 			if (type === ".") {
-				for (var i = 0; i < args.length; i++) {
-					if (args[i].className == eles) {
-						this.elements.push(args[i]);
+				for (var i = 0; i < tags_array.length; i++) {
+					if (tags_array[i].className == eles) {
+						this.elements.push(tags_array[i]);
 					}
 				}
 			}
@@ -157,41 +160,111 @@
 			if (type === "#") {
 				this.elements.push(document.getElementById(eles));
 			}
-			console.log(args);
+
 			if (type === "&") {
 				for (var i = 0; i <= level_stop; i++) {
-					console.log(i);
-					var args_len = args.length;
-					var tem_args = args;
-					args = [];
-					for (var j = 0; j < args_len; j++) {
-						if (tem_args[i].tagName.toLowerCase() == eles.toLowerCase()) {
-							args.push(tem_args[i]);
-						}
-
-
-
-					/*
-						console.log(args);
-						while(i >= level_start) {
-							console.log("message");
-							if (args[i].tagName.toLowerCase() == eles.toLowerCase()) {
-								this.elements.push(args[i]);
-								console.log(this.elements);
-							}
-							break;
-						}*/
-					}
-					console.log(this.elements);
-					// args = this.elements.children;
-					console.log(args);
+					tem_tags = tags_array;
 				}
 
+			}*/
+
+/*			var tem_elements = this.elements[0].children;
+			console.log(tem_elements);
+			this.elements = [];
+			for (var i = 0; i < tem_elements.length; i++) {
+				// "nodeType"=1 means ELEMENT_NODE
+				if (tem_elements[i].nodeType === 1) {
+					this.elements.push(tem_elements[i]);
+				}
 			}
-			// console.log(this.elements);
+			console.log(this.elements);
+*/
+			
+/*			var curr_ele = this.elements[0];
+			selector = selector.slice(1);
+			console.log(selector);
+			this.elements = [];
+			for (var i = 0; i <= level_stop; i++) {
+console.log(curr_ele);
+				while(!curr_ele.firstElementChild) {
+					curr_ele = curr_ele.nextElementSibling;
+					console.log("1");
+				}
+
+				curr_ele = curr_ele.firstElementChild;
+
+				if (i >= level_start && curr_ele == selector) {
+					this.elements.push(curr_ele);
+					console.log("2");
+				}
+
+				while (curr_ele.nextElementSibling) {
+					curr_ele = curr_ele.nextElementSibling;
+					console.log(curr_ele);
+
+					if (i >= level_start && curr_ele == selector) {
+						console.log("4");
+						this.elements.push(curr_ele);
+					}
+				}
+
+				if (i === 0) {
+					console.log("5");
+					curr_ele = curr_ele.parentElement.firstElementChild;
+				}
+
+				while (i > 0 && curr_ele.parentElement.nextElementSibling) {
+					console.log("6");
+					curr_ele = curr_ele.parentElement.nextElementSibling
+				}
+			}
+console.log(this.elements);*/
 			return this;
-		}
-    
+		},
+
+		addEvent: function(d, e, c) {
+	    if (d.addEventListener) {
+	      d.addEventListener(e, c, false);
+	      return true
+	    } else {
+	      if (d.attachEvent) {
+	        d["e" + e + c] = c;
+	        d.attachEvent("on" + e, function() {
+	          d["e" + e + c](window.event)
+	        });
+	        return true
+	      }
+	    }
+	    return false
+	  },
+		hov: function(d, c) {
+	    return this.msover(d).msout(c)
+	  },click: function(c) {
+	    var d = this;
+	    this.each(function(e) {
+	      d.addEvent(e, "click", c)
+	    });
+	    return this
+	  },msover: function(c) {
+	    var d = this;
+	    this.each(function(e) {
+	      d.addEvent(e, "mouseover", c)
+	    });
+	    return this
+	  },msout: function(c) {
+	    var d = this;
+	    this.each(function(e) {
+	      d.addEvent(e, "mouseout", c)
+	    });
+	    return this
+	  },msmv: function(c) {
+	    var d = this;
+	    this.each(function(e) {
+	      d.addEvent(e, "mousemove", c)
+	    });
+	    return this
+	  }
+
 	};
 
 
