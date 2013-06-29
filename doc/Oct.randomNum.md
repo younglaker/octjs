@@ -21,5 +21,5 @@ Create random number in specific range.
 
 2.Log a rangdom int number range from 5 to 25:
 
-	console.log(Oct.randomNum(1, 10, "int"));
+	console.log(Oct.randomNum(1, 25, "int"));
 
