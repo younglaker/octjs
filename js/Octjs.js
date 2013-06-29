@@ -291,21 +291,24 @@ console.log(this.elements);*/
 
 	Oct.randomNum = function(start, stop, type) {
 
-		var rand_num = makeRandom(stop);
+		var random_num = makeRandom(stop);
+		start = start || 0;
+		stop = stop || 1;
 		type = type || "float";
 
-		while(rand_num <= start){     //include the stop
-			rand_num = makeRandom(stop);
-		}
-		if(type == "int") {
-			rand_num = parseInt(rand_num);
+		while (random_num <= start){		//include the stop
+			random_num = makeRandom(stop);
 		}
 
-		return rand_num;
+		if (type == "int") {
+			random_num = parseInt(random_num);
+		}
+
+		return random_num;
   };
 
 
-	function makeRandom(max) {
+	makeRandom: function(max) {
 		return Math.random() * max;
 	}
 
