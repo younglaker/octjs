@@ -19,7 +19,7 @@ Create random number in specific range.
 
 	console.log(Oct.randomNum(1.5, 10));
 
-1.Log a rangdom int number range from 5 to 25:
+2.Log a rangdom int number range from 5 to 25:
 
 	console.log(Oct.randomNum(1, 10, "int"));
 
