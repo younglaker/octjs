@@ -222,55 +222,59 @@ console.log(this.elements);*/
 			return this;
 		},
 
-		addEvent: function(d, e, c) {
-	    if (d.addEventListener) {
-	      d.addEventListener(e, c, false);
-	      return true
+		addEvent: function(ele, event_type, fn) {
+	    if (ele.addEventListener) {
+	      ele.addEventListener(event_type, fn, false);
 	    } else {
-	      if (d.attachEvent) {
-	        d["e" + e + c] = c;
-	        d.attachEvent("on" + e, function() {
-	          d["e" + e + c](window.event)
-	        });
-	        return true
+	      if (ele.attachEvent) {
+	        ele.attachEvent("on" + event_type, fn);
 	      }
 	    }
-	    return false
+	    return false;
 	  },
-		hov: function(d, c) {
-	    return this.msover(d).msout(c)
-	  },click: function(c) {
-	    var d = this;
+
+		hover: function(fn_1, fn_2) {
+	    return this.msover(fn_1).msout(fn_2);
+	  },
+
+	  click: function(fn) {
+	    var ele = this;
 	    this.each(function(e) {
-	      d.addEvent(e, "click", c)
+	      ele.addEvent(e, "click", fn);
 	    });
-	    return this
-	  },msover: function(c) {
-	    var d = this;
+	    return this;
+	  },
+
+	  mouseover: function(fn) {
+	    var ele = this;
 	    this.each(function(e) {
-	      d.addEvent(e, "mouseover", c)
+	      ele.addEvent(e, "mouseover", fn);
 	    });
-	    return this
-	  },msout: function(c) {
-	    var d = this;
+	    return this;
+	  },
+
+	  mouseout: function(fn) {
+	    var ele = this;
 	    this.each(function(e) {
-	      d.addEvent(e, "mouseout", c)
+	      ele.addEvent(e, "mouseout", fn);
 	    });
-	    return this
-	  },msmv: function(c) {
-	    var d = this;
+	    return this;
+	  },
+
+	  mousemove: function(fn) {
+	    var ele = this;
 	    this.each(function(e) {
-	      d.addEvent(e, "mousemove", c)
+	      ele.addEvent(e, "mousemove", fn);
 	    });
-	    return this
+	    return this;
 	  }
 
 	};
 
 
-	Oct.stopBubble = function() {
+	Oct.stopBubble = function(e) {
 
-	  e = window.event || event;
+	  e = window.event || e;
 
 		// IE
 	  if(document.all) {
@@ -308,7 +312,7 @@ console.log(this.elements);*/
   };
 
 
-	makeRandom: function(max) {
+	var makeRandom = function(max) {
 		return Math.random() * max;
 	}
 
