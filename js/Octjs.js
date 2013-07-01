@@ -223,51 +223,65 @@ console.log(this.elements);*/
 		},
 
 		addEvent: function(ele, event_type, fn) {
-	    if (ele.addEventListener) {
-	      ele.addEventListener(event_type, fn, false);
-	    } else {
-	      if (ele.attachEvent) {
-	        ele.attachEvent("on" + event_type, fn);
-	      }
-	    }
-	    return false;
-	  },
+			if (ele.addEventListener) {
+				ele.addEventListener(event_type, fn, false);
+			} else if (ele.attachEvent) {
+				ele.attachEvent("on" + event_type, fn);
+			}
+			return false;
+		},
 
 		hover: function(fn_1, fn_2) {
-	    return this.msover(fn_1).msout(fn_2);
-	  },
+			return this.mouseover(fn_1).mouseout(fn_2);
+		},
 
-	  click: function(fn) {
-	    var ele = this;
-	    this.each(function(e) {
-	      ele.addEvent(e, "click", fn);
-	    });
-	    return this;
-	  },
+		click: function(fn) {
+			var ele = this;
+			this.each(function(e) {
+				ele.addEvent(e, "click", fn);
+			});
+			return this;
+		},
 
-	  mouseover: function(fn) {
-	    var ele = this;
-	    this.each(function(e) {
-	      ele.addEvent(e, "mouseover", fn);
-	    });
-	    return this;
-	  },
+		mouseover: function(fn) {
+			var ele = this;
+			this.each(function(e) {
+				ele.addEvent(e, "mouseover", fn);
+			});
+			return this;
+		},
 
-	  mouseout: function(fn) {
-	    var ele = this;
-	    this.each(function(e) {
-	      ele.addEvent(e, "mouseout", fn);
-	    });
-	    return this;
-	  },
+		mouseout: function(fn) {
+			var ele = this;
+			this.each(function(e) {
+				ele.addEvent(e, "mouseout", fn);
+			});
+			return this;
+		},
 
-	  mousemove: function(fn) {
-	    var ele = this;
-	    this.each(function(e) {
-	      ele.addEvent(e, "mousemove", fn);
-	    });
-	    return this;
-	  }
+		mousemove: function(fn) {
+			var ele = this;
+			this.each(function(e) {
+				ele.addEvent(e, "mousemove", fn);
+			});
+			return this;
+		}
+
+		mousedown: function(fn) {
+			var ele = this;
+			this.each(function(e) {
+				ele.addEvent(e, "mousedown", fn);
+			});
+			return this;
+		}
+
+		mouseup: function(fn) {
+			var ele = this;
+			this.each(function(e) {
+				e.addEvent(e, "onmouseup", fn);
+			});
+			return this;
+		}
 
 	};
 
