@@ -283,6 +283,20 @@ console.log(this.elements);*/
 				d.addEvent(eles, "onmouseup", fn);
 			});
 			return this;
+		},
+
+		setOpacity: function(level) {
+			var ele = this;
+			// IE9 and earlier
+			if (document.all) {
+				this.each(function(eles) {
+					eles.style.filter = "alpha(opacity=" + level * 100 + ")";
+				});
+			} else {
+				this.each(function(eles) {
+					eles.style.opacity = level;
+				});
+			}
 		}
 
 	};
