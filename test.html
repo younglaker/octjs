@@ -13,6 +13,12 @@
 		position: absolute;
 		top: 120px;
 		left: 300px;
+		background: #0f0;
+	}
+	#test_img {
+		position: absolute;
+		top: 120px;
+		left: 500px;
 	}
 </style>
 	<div id="test" class="hi">sss</div>
@@ -40,6 +46,8 @@
 
 	<div id="test2">111</div>
 
+	<img src="img/laker.png" id="test_img" alt="">
+
 	<script type="text/javascript" src="js/jquery-1.10.1.js"></script>
 	<script type="text/javascript" src="js/Octjs.js"></script>
 	<script type="text/javascript">
@@ -56,6 +64,38 @@
 	O("#test2").click(function(){
 		alert("message");
 	});
+
+ var d =document.getElementById("test_img");
+ d.style.filter = "alpha(opacity=40)" ;
+
+
+	console.dir(O("#test_img"));
+
+	O("#test_img").setOpacity(0.5);
+
+
+
+   var ieversion = ie && (function () {
+      var re  = new RegExp("msie ([0-9]{1,}[\.0-9]{0,})");
+     if (re.exec(ua) != null)
+        return parseFloat(RegExp.$1);
+      return null;
+    }());
+   alert(ieversion);
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// O("#test_img").setCss({"top":0}).setCss({"left":"30px"});
 	// O("#box").children().html("lala");
 
 	// console.dir(O(".hi"));

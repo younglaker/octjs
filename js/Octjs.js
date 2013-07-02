@@ -88,6 +88,7 @@
 
 		html: function(text) {
 			this.each(function(eles) {
+				// Warning: dont use "this.elements", use "eles"
 				eles.innerHTML = text;
 			});
 	    return this;
@@ -95,10 +96,10 @@
 
 		setCss: function(property_list) {
 
-			this.each(function(e) {
+			this.each(function(eles) {
 				// "name" stores the index of "property_list".
 				for (var name in property_list) {
-					this.elements.style[name] = property_list[name];
+					eles.style[name] = property_list[name];
 				}
 			});
 
@@ -111,18 +112,18 @@
 			// IE
 			if (document.documentElement.currentStyle) {
 
-				this.each(function(e) {
+				this.each(function() {
 					for (var i in arguments){
-						pro_val.push(this.elements.currentStyle[arguments[i]]);	
+						pro_val.push(eles.currentStyle[arguments[i]]);	
 					}
 				});
 
 			// not IE
 			} else if (window.getComputedStyle) {
 
-				this.each(function(e) {
+				this.each(function(eles) {
 					for (var i in arguments){
-						pro_val.push(window.getComputedStyle(this.elements, null).getPropertyValue(arguments[i]));
+						pro_val.push(window.getComputedStyle(eles, null).getPropertyValue(arguments[i]));
 					}
 				});
 
@@ -236,51 +237,66 @@ console.log(this.elements);*/
 		},
 
 		click: function(fn) {
-			var ele = this;
-			this.each(function(e) {
-				ele.addEvent(e, "click", fn);
+			var d = this;
+			this.each(function(eles) {
+				// console.log(e);
+				d.addEvent(eles, "click", fn);
 			});
 			return this;
 		},
 
 		mouseover: function(fn) {
-			var ele = this;
-			this.each(function(e) {
-				ele.addEvent(e, "mouseover", fn);
+			var d = this;
+			this.each(function(eles) {
+				d.addEvent(eles, "mouseover", fn);
 			});
 			return this;
 		},
 
 		mouseout: function(fn) {
-			var ele = this;
-			this.each(function(e) {
-				ele.addEvent(e, "mouseout", fn);
+			var d = this;
+			this.each(function(eles) {
+				d.addEvent(eles, "mouseout", fn);
 			});
 			return this;
 		},
 
 		mousemove: function(fn) {
-			var ele = this;
-			this.each(function(e) {
-				ele.addEvent(e, "mousemove", fn);
+			var d = this;
+			this.each(function(eles) {
+				d.addEvent(eles, "mousemove", fn);
 			});
 			return this;
-		}
+		},
 
 		mousedown: function(fn) {
-			var ele = this;
-			this.each(function(e) {
-				ele.addEvent(e, "mousedown", fn);
+			var d = this;
+			this.each(function(eles) {
+				d.addEvent(eles, "mousedown", fn);
 			});
 			return this;
-		}
+		},
 
 		mouseup: function(fn) {
-			var ele = this;
-			this.each(function(e) {
-				e.addEvent(e, "onmouseup", fn);
+			var d = this;
+			this.each(function(eles) {
+				d.addEvent(eles, "onmouseup", fn);
 			});
 			return this;
+		},
+
+		setOpacity: function(level) {
+			var ele = this;
+			// IE9 and earlier
+			if (document.all) {
+				this.each(function(eles) {
+					eles.style.filter = "alpha(opacity=" + level * 100 + ")";
+				});
+			} else {
+				this.each(function(eles) {
+					eles.style.opacity = level;
+				});
+			}
 		}
 
 	};
