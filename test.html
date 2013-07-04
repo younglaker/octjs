@@ -46,14 +46,14 @@
 
 	<div id="test2">111</div>
 
-	<img src="img/laker.png" id="test_img" alt="">
+	<img src="img/laker.png" id="test_img" alt="" style="opacity:0.5" >
 
 	<script type="text/javascript" src="js/jquery-1.10.1.js"></script>
 	<script type="text/javascript" src="js/Octjs.js"></script>
 	<script type="text/javascript">
 	var a = "aa nn mm";
 	// console.log(a.charAt(2));
-
+/*
 	var b = document.getElementById("box");
 	console.dir(b);
 	 var c = $("#box").children();
@@ -61,27 +61,23 @@
 
 	O("#box").children("&span", 1, 1).html("lalaaaaaaaaaaaaaaaaaaaaaaa");
 
-	O("#test2").click(function(){
+	O("#test2").setCss({height:"300px"}).click(function(){
 		alert("message");
-	});
+	});;*/
 
+	// console.log(	O("#test2").height());
  var d =document.getElementById("test_img");
  d.style.filter = "alpha(opacity=40)" ;
+console.dir(d.style);
 
 
-	console.dir(O("#test_img"));
-
-	O("#test_img").setOpacity(0.5);
-
-
-
-   var ieversion = ie && (function () {
-      var re  = new RegExp("msie ([0-9]{1,}[\.0-9]{0,})");
-     if (re.exec(ua) != null)
-        return parseFloat(RegExp.$1);
-      return null;
-    }());
-   alert(ieversion);
+var userAgent = navigator.userAgent.toLowerCase();
+// Test if the browser is IE and check the version number is lower than 9
+if (/msie/.test(userAgent) && 
+    parseFloat((userAgent.match(/.*(?:rv|ie)[\/: ](.+?)([ \);]|$)/) || [])[1]) < 9) {
+  // Navigate to error page
+alert("message");
+}
 
 
 
@@ -94,8 +90,8 @@
 
 
 
-
-	// O("#test_img").setCss({"top":0}).setCss({"left":"30px"});
+	// O("#test_img").setCss({top:0}).setCss({left:"30px"});
+	// console.log(O("#test_img").getCss("top","left"));
 	// O("#box").children().html("lala");
 
 	// console.dir(O(".hi"));

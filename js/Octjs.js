@@ -1,7 +1,7 @@
 /*
 *	OctJs JavaScript Toolkit v1.0
 *	https://github.com/younglaker/octjs
-*	Description: Contains many usual functions for web devolepment.
+*	Description: Contains many frequently-used functions for web devolepment.
 *	Copyright 2013, Laker Huang
 *	Released under the MIT Licenses.
 *	Date: 2013-05-27 to one day
@@ -97,8 +97,10 @@
 		setCss: function(property_list) {
 
 			this.each(function(eles) {
+				// "property_list" is a hash table.
 				// "name" stores the index of "property_list".
 				for (var name in property_list) {
+					console.log(eles);
 					eles.style[name] = property_list[name];
 				}
 			});
@@ -106,31 +108,52 @@
 			return this;
 		},
 
-		getCss: function(property) {
-			var pro_val = [];
+		getCss: function() {
+			// property_name: the property name array, get from  "arguments".Because in "each" function, "arguments" is no longer means property, so use a variable to store it.
+			// property_val: store the property value ans return
+			var property_name = arguments;
+			var property_val = [];
 
 			// IE
 			if (document.documentElement.currentStyle) {
-
-				this.each(function() {
-					for (var i in arguments){
-						pro_val.push(eles.currentStyle[arguments[i]]);	
+				this.each(function(eles) {
+					for (var i in property_name){
+						property_val.push(eles.currentStyle[property_name[i]]);	
 					}
 				});
 
 			// not IE
 			} else if (window.getComputedStyle) {
-
 				this.each(function(eles) {
-					for (var i in arguments){
-						pro_val.push(window.getComputedStyle(eles, null).getPropertyValue(arguments[i]));
+					for (var i in property_name){
+						property_val.push(window.getComputedStyle(eles, null).getPropertyValue(property_name[i]));
 					}
 				});
-
-
 			}
 
-			return pro_val.join(",");
+			// Turn array into string.
+			return property_val.join(",");
+		},
+
+		height: function() {
+			if (arguments.length === 0) {
+				// Because "getCss" "setCss" is function of "Oct" object, so must use "this"(a Oct object) to call them, not "this.elements"
+				return this.getCss("height");			
+			} else if (arguments.length === 1) {
+				this.setCss({height: arguments[1]});
+				return this;
+			}
+
+		},
+
+		width: function() {
+			if (arguments.length === 0) {
+				return this.getCss("width");
+			} else if (arguments.length === 1) {
+				this.setCss({width: arguments[1]});
+				return this;
+			}
+
 		},
 
 		a: function() {
