@@ -46,7 +46,7 @@
 
 	<div id="test2">111</div>
 
-	<img src="img/laker.png" id="test_img" alt="" style="opacity:0.5" >
+	<img src="img/laker.png" id="test_img" alt="">
 
 	<script type="text/javascript" src="js/jquery-1.10.1.js"></script>
 	<script type="text/javascript" src="js/Octjs.js"></script>
@@ -59,31 +59,32 @@
 	 var c = $("#box").children();
 	 console.log(c);
 
-	O("#box").children("&span", 1, 1).html("lalaaaaaaaaaaaaaaaaaaaaaaa");
-
+	O("#box").children("&span", 1, 1).html("lalaaaaaaaaaaaaaaaaaaaaaaa");*/
+console.log(Oct.browswer.a);
 	O("#test2").setCss({height:"300px"}).click(function(){
 		alert("message");
-	});;*/
+	});
 
 	// console.log(	O("#test2").height());
  var d =document.getElementById("test_img");
- d.style.filter = "alpha(opacity=40)" ;
-console.dir(d.style);
+ // d.style.filter = "alpha(opacity=40)" ;
+// console.dir(d.style);
 
 
 var userAgent = navigator.userAgent.toLowerCase();
 // Test if the browser is IE and check the version number is lower than 9
 if (/msie/.test(userAgent) && 
-    parseFloat((userAgent.match(/.*(?:rv|ie)[\/: ](.+?)([ \);]|$)/) || [])[1]) < 9) {
+    parseFloat((userAgent.match(/.*(?:rv|ie)[\/: ](.+?)([ \);]|$)/) || [])[1]) < 10) {
   // Navigate to error page
-alert("message");
+// alert("message");
 }
+// alert(Oct.ieVerion());
 
 
+console.dir(navigator);
 
 
-
-
+console.log(Oct.browswer());
 
 
 

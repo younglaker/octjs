@@ -156,6 +156,20 @@
 
 		},
 
+		setOpacity: function(level) {
+			var ele = this;
+			// IE9 and earlier
+			if (this.elements[0].style.opacity) {
+				this.each(function(eles) {
+					eles.style.opacity = level;
+				});
+			} else {
+				this.each(function(eles) {
+					eles.style.filter = "alpha(opacity=" + level * 100 + ")";
+				});
+			}
+		},
+
 		a: function() {
 			alert("message");
 		},
@@ -260,16 +274,13 @@ console.log(this.elements);*/
 		},
 
 		click: function(fn) {
-			var d = this;
 			this.each(function(eles) {
-				// console.log(e);
-				d.addEvent(eles, "click", fn);
+				this.addEvent(eles, "click", fn);
 			});
 			return this;
 		},
 
 		mouseover: function(fn) {
-			var d = this;
 			this.each(function(eles) {
 				d.addEvent(eles, "mouseover", fn);
 			});
@@ -277,7 +288,6 @@ console.log(this.elements);*/
 		},
 
 		mouseout: function(fn) {
-			var d = this;
 			this.each(function(eles) {
 				d.addEvent(eles, "mouseout", fn);
 			});
@@ -285,7 +295,6 @@ console.log(this.elements);*/
 		},
 
 		mousemove: function(fn) {
-			var d = this;
 			this.each(function(eles) {
 				d.addEvent(eles, "mousemove", fn);
 			});
@@ -293,7 +302,6 @@ console.log(this.elements);*/
 		},
 
 		mousedown: function(fn) {
-			var d = this;
 			this.each(function(eles) {
 				d.addEvent(eles, "mousedown", fn);
 			});
@@ -301,29 +309,62 @@ console.log(this.elements);*/
 		},
 
 		mouseup: function(fn) {
-			var d = this;
 			this.each(function(eles) {
 				d.addEvent(eles, "onmouseup", fn);
 			});
 			return this;
-		},
-
-		setOpacity: function(level) {
-			var ele = this;
-			// IE9 and earlier
-			if (document.all) {
-				this.each(function(eles) {
-					eles.style.filter = "alpha(opacity=" + level * 100 + ")";
-				});
-			} else {
-				this.each(function(eles) {
-					eles.style.opacity = level;
-				});
-			}
 		}
 
 	};
 
+	Oct.ieVerion = function() {
+		return /msie/.test(userAgent) && 
+    parseFloat((userAgent.match(/.*(?:rv|ie)[\/: ](.+?)([ \);]|$)/) || [])[1]);
+	}
+
+	Oct.browswer = function() {
+	  // return new browswer();
+	  var result = {name: "", version: ""};
+		//Detect browser and write the corresponding name
+		if (navigator.userAgent.search("MSIE") >= 0){
+			result.name = "MS Internet Explorer";
+			var position = navigator.userAgent.search("MSIE") + 5;
+			var end = navigator.userAgent.search("; Windows");
+			result.version = navigator.userAgent.substring(position,end);
+		}
+		else if (navigator.userAgent.search("Chrome") >= 0){
+			result.name = "Google Chrome";// For some reason in the browser identification Chrome contains the word "Safari" so when detecting for Safari you need to include Not Chrome
+			var position = navigator.userAgent.search("Chrome") + 7;
+			var end = navigator.userAgent.search(" Safari");
+			result.version = navigator.userAgent.substring(position,end);
+		}
+		else if (navigator.userAgent.search("Firefox") >= 0){
+			result.name = "Mozilla Firefox";
+			var position = navigator.userAgent.search("Firefox") + 8;
+			result.version = navigator.userAgent.substring(position);
+		}
+		else if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0){//<< Here
+			result.name = "Apple Safari";
+			var position = navigator.userAgent.search("Version") + 8;
+			var end = navigator.userAgent.search(" Safari");
+			result.version = navigator.userAgent.substring(position,end);
+		}
+		else if (navigator.userAgent.search("Opera") >= 0){
+			result.name = "Opera";
+			var position = navigator.userAgent.search("Version") + 8;
+			result.version = navigator.userAgent.substring(position);
+		}
+		else{
+			result.name = "others";
+			result.version = "none";
+		}
+
+		return result;
+	}
+
+	browswer = function() {
+	  var a = 9;
+	}
 
 	Oct.stopBubble = function(e) {
 
