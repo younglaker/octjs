@@ -317,44 +317,38 @@ console.log(this.elements);*/
 	};
 
 	Oct.ieVerion = function() {
-		return /msie/.test(userAgent) && parseFloat((userAgent.match(/.*(?:rv|ie)[\/: ](.+?)([ \);]|$)/) || [])[1]) || "This is not IE.";
+	  var ua = navigator.userAgent;
+		return /msie/.test(ua) && parseFloat((ua.match(/.*(?:rv|ie)[\/: ](.+?)([ \);]|$)/) || [])[1]) || "This is not IE.";
 	}
 
 	Oct.browswer = function() {
-	  var result = {name: "", version: ""};
+		var ua        = navigator.userAgent,
+		result        = {name: "", version: ""},
+		webkitVersion = /version\/(\d+(\.\d+)?)/i;
 
-		if (navigator.userAgent.search("MSIE") >= 0){
-			result.name = "MS Internet Explorer";
-			var position = navigator.userAgent.search("MSIE") + 5;
-			var end = navigator.userAgent.search("; Windows");
-			result.version = navigator.userAgent.substring(position,end);
+		if (/msie/i.test(ua)){
+			result.name = "IE";
+			result.version = ua.match(/msie (\d+(\.\d+)+);/i)[1];
 		
-		} else if (navigator.userAgent.search("Chrome") >= 0){
-			// For some reason in the browser identification Chrome contains the word "Safari" so when detecting for Safari you need to include Not Chrome
-			result.name = "Google Chrome";
-			var position = navigator.userAgent.search("Chrome") + 7;
-			var end = navigator.userAgent.search(" Safari");
-			result.version = navigator.userAgent.substring(position,end);
+		} else if (/chrome/i.test(ua)){
+			result.name = "Chrome";
+			result.version = ua.match(/chrome\/(\d+(\.\d+)*)/i)[1];
 		
-		} else if (navigator.userAgent.search("Firefox") >= 0){
-			result.name = "Mozilla Firefox";
-			var position = navigator.userAgent.search("Firefox") + 8;
-			result.version = navigator.userAgent.substring(position);
+		} else if (/firefox/i.test(ua)){
+			result.name = "Firefox";
+			result.version = ua.match(/firefox\/(\d+(\.\d+)+)/i)[1];
 		
-		} else if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0){//<< Here
-			result.name = "Apple Safari";
-			var position = navigator.userAgent.search("Version") + 8;
-			var end = navigator.userAgent.search(" Safari");
-			result.version = navigator.userAgent.substring(position,end);
+		} else if (/safari/i.test(ua) && !/chrome/i.test(ua)){
+			result.name = "Safari";
+			result.version = ua.match(webkitVersion)[1];
 		
-		} else if (navigator.userAgent.search("Opera") >= 0){
+		} else if (/opera/i.test(ua)){
 			result.name = "Opera";
-			var position = navigator.userAgent.search("Version") + 8;
-			result.version = navigator.userAgent.substring(position);
+			result.version = ua.match(webkitVersion)[1];
 		
-		} else{
-			result.name = "others";
-			result.version = "none";
+		} else {
+			result.name = "Others";
+			result.version = "NaN";
 		}
 
 		return result;
