@@ -7,11 +7,11 @@ Create random number in specific range.
 ### Syntax
 	Oct.randomNum = function(start, stop, type)  => number
 
-- start: the minimum value (includes).
+- start: <Number>, the minimum value (includes).
 
-- stop: the max value (includes).
+- stop: <Number>, the max value (includes).
 
-- type: "float"(default), "int"
+- type: <String>, "float"(default), "int"
 
 ### Demo
 

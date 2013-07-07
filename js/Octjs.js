@@ -9,12 +9,13 @@
 
 (function() {
 
+	// Create a global window object "window.O"
 	window.O = Oct = function(selector, root_id, tag) {
 	    return new Octobj(selector, root_id, tag);
 	};
 
 	Oct.version = "1.0";
-
+	var ss = 10;
 	//  selector: the elements you want.
 	//  root_id: the root's id of the elements'root you want.
 	//  tag: point out the specific tag of the selector. If none, it's document.
@@ -100,7 +101,6 @@
 				// "property_list" is a hash table.
 				// "name" stores the index of "property_list".
 				for (var name in property_list) {
-					console.log(eles);
 					eles.style[name] = property_list[name];
 				}
 			});
@@ -157,12 +157,12 @@
 		},
 
 		setOpacity: function(level) {
-			var ele = this;
-			// IE9 and earlier
 			if (this.elements[0].style.opacity) {
 				this.each(function(eles) {
 					eles.style.opacity = level;
 				});
+
+			// IE9 and earlier
 			} else {
 				this.each(function(eles) {
 					eles.style.filter = "alpha(opacity=" + level * 100 + ")";
@@ -266,7 +266,7 @@ console.log(this.elements);*/
 			} else if (ele.attachEvent) {
 				ele.attachEvent("on" + event_type, fn);
 			}
-			return false;
+			return this;
 		},
 
 		hover: function(fn_1, fn_2) {
@@ -275,6 +275,7 @@ console.log(this.elements);*/
 
 		click: function(fn) {
 			this.each(function(eles) {
+				console.log(eles);
 				this.addEvent(eles, "click", fn);
 			});
 			return this;
@@ -318,8 +319,7 @@ console.log(this.elements);*/
 	};
 
 	Oct.ieVerion = function() {
-		return /msie/.test(userAgent) && 
-    parseFloat((userAgent.match(/.*(?:rv|ie)[\/: ](.+?)([ \);]|$)/) || [])[1]);
+			return /msie/.test(userAgent) && parseFloat((userAgent.match(/.*(?:rv|ie)[\/: ](.+?)([ \);]|$)/) || [])[1]) || "This is not IE.";
 	}
 
 	Oct.browswer = function() {
@@ -360,10 +360,6 @@ console.log(this.elements);*/
 		}
 
 		return result;
-	}
-
-	browswer = function() {
-	  var a = 9;
 	}
 
 	Oct.stopBubble = function(e) {
@@ -410,4 +406,14 @@ console.log(this.elements);*/
 		return Math.random() * max;
 	}
 
-}());
+	Oct.global = {};
+	Oct.global.namespace = function(str) {
+	  var arr = str.split("."), o = Oct.global;
+	  console.log(arr);
+	  for (var i = (arr[0] == "global") ? 1 : 0; i < arr.length; i++) {
+	  	o[arr[i]] = o[arr[i]] || {};
+	  	o = o[arr[i]];
+	  }
+	}
+
+})();
