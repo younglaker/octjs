@@ -23,9 +23,13 @@ The function can be recognized easily by the name.
 
 ### Demo
 
-1.Set height as 300px for #buddy, and when click it, alert "hi".
+1.Set width and height as 150px for ".buddy", and when click it, alert "hi".
 
-	O("#buddy").setCss({height:"300px"}).click(function(){
+	O(".buddy").click(function(){
 		alert("hi");
+	})
+	.setCss({
+		width: "150px",
+		height: "150px"
 	});
 

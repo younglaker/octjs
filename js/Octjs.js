@@ -16,15 +16,18 @@
 
 	Oct.version = "1.0";
 	var ss = 10;
+
 	//  selector: the elements you want.
 	//  root_id: the root's id of the elements'root you want.
 	//  tag: point out the specific tag of the selector. If none, it's document.
 	var Octobj = function(selector, root_id, tag) {
+
 		// args: the array stores the elements list splited by "selector".
 		// type: id("#"), class(".") or tag("&").
 		// eles: temporary!!! store the str after"# . &"
 		var agrs, type, eles;
 		var selector_exp = /^(?:#(\w-_)+|\.(\w-_)+|(\w)+)$/;
+
 		// this.elements: store the elements you want and return in the end of function.
 		this.elements = [];
 
@@ -45,6 +48,7 @@
 
 		// use lowercase to judge,and delete the space initio,then slpite by one or more space.
 		selector = selector.replace(/^\s+/, "").split(/\s+/);
+
 		// if dont point out the "root_id" and "tag", "args" is all the tags in document
 		args = root_id.getElementsByTagName(tag);
 		type = selector[0].charAt(0);
@@ -80,9 +84,11 @@
 
 		each: function(fun) {
 			for (var c = 0; c < this.elements.length; c++) {
+
 				// use "this.elements[]" to raplace "this" in the "fun",so it doesn't have to use "this.elements" to call the "fun".
 				fun.call(this, this.elements[c]);
 			}
+
 			// here, "this" is the "Octobj" object,so do all the function.
 			return this;
 		},
@@ -98,6 +104,7 @@
 		setCss: function(property_list) {
 
 			this.each(function(eles) {
+
 				// "property_list" is a hash table.
 				// "name" stores the index of "property_list".
 				for (var name in property_list) {
@@ -109,10 +116,11 @@
 		},
 
 		getCss: function() {
+
 			// property_name: the property name array, get from  "arguments".Because in "each" function, "arguments" is no longer means property, so use a variable to store it.
 			// property_val: store the property value ans return
 			var property_name = arguments;
-			var property_val = [];
+			var property_val  = [];
 
 			// IE
 			if (document.documentElement.currentStyle) {
@@ -137,6 +145,7 @@
 
 		height: function() {
 			if (arguments.length === 0) {
+
 				// Because "getCss" "setCss" is function of "Oct" object, so must use "this"(a Oct object) to call them, not "this.elements"
 				return this.getCss("height");			
 			} else if (arguments.length === 1) {
@@ -260,12 +269,14 @@ console.log(this.elements);*/
 			return this;
 		},
 
-		addEvent: function(ele, event_type, fn) {
-			if (ele.addEventListener) {
-				ele.addEventListener(event_type, fn, false);
-			} else if (ele.attachEvent) {
-				ele.attachEvent("on" + event_type, fn);
-			}
+		addEvent: function(event_type, fn) {
+			this.each(function(eles) {
+				if (eles.addEventListener) {
+					eles.addEventListener(event_type, fn, false);
+				} else if (eles.attachEvent) {
+					eles.attachEvent("on" + event_type, fn);
+				}
+			});
 			return this;
 		},
 
@@ -274,87 +285,74 @@ console.log(this.elements);*/
 		},
 
 		click: function(fn) {
-			this.each(function(eles) {
-				console.log(eles);
-				this.addEvent(eles, "click", fn);
-			});
+			this.addEvent("click", fn);
 			return this;
 		},
 
 		mouseover: function(fn) {
-			this.each(function(eles) {
-				d.addEvent(eles, "mouseover", fn);
-			});
+			this.addEvent("mouseover", fn);
 			return this;
 		},
 
 		mouseout: function(fn) {
-			this.each(function(eles) {
-				d.addEvent(eles, "mouseout", fn);
-			});
+			this.addEvent("mouseout", fn);
 			return this;
 		},
 
 		mousemove: function(fn) {
-			this.each(function(eles) {
-				d.addEvent(eles, "mousemove", fn);
-			});
+			this.addEvent("mousemove", fn);
 			return this;
 		},
 
 		mousedown: function(fn) {
-			this.each(function(eles) {
-				d.addEvent(eles, "mousedown", fn);
-			});
+			this.addEvent("mousedown", fn);
 			return this;
 		},
 
 		mouseup: function(fn) {
-			this.each(function(eles) {
-				d.addEvent(eles, "onmouseup", fn);
-			});
+			this.addEvent("onmouseup", fn);
 			return this;
 		}
 
 	};
 
 	Oct.ieVerion = function() {
-			return /msie/.test(userAgent) && parseFloat((userAgent.match(/.*(?:rv|ie)[\/: ](.+?)([ \);]|$)/) || [])[1]) || "This is not IE.";
+		return /msie/.test(userAgent) && parseFloat((userAgent.match(/.*(?:rv|ie)[\/: ](.+?)([ \);]|$)/) || [])[1]) || "This is not IE.";
 	}
 
 	Oct.browswer = function() {
-	  // return new browswer();
 	  var result = {name: "", version: ""};
-		//Detect browser and write the corresponding name
+
 		if (navigator.userAgent.search("MSIE") >= 0){
 			result.name = "MS Internet Explorer";
 			var position = navigator.userAgent.search("MSIE") + 5;
 			var end = navigator.userAgent.search("; Windows");
 			result.version = navigator.userAgent.substring(position,end);
-		}
-		else if (navigator.userAgent.search("Chrome") >= 0){
-			result.name = "Google Chrome";// For some reason in the browser identification Chrome contains the word "Safari" so when detecting for Safari you need to include Not Chrome
+		
+		} else if (navigator.userAgent.search("Chrome") >= 0){
+			// For some reason in the browser identification Chrome contains the word "Safari" so when detecting for Safari you need to include Not Chrome
+			result.name = "Google Chrome";
 			var position = navigator.userAgent.search("Chrome") + 7;
 			var end = navigator.userAgent.search(" Safari");
 			result.version = navigator.userAgent.substring(position,end);
-		}
-		else if (navigator.userAgent.search("Firefox") >= 0){
+		
+		} else if (navigator.userAgent.search("Firefox") >= 0){
 			result.name = "Mozilla Firefox";
 			var position = navigator.userAgent.search("Firefox") + 8;
 			result.version = navigator.userAgent.substring(position);
-		}
-		else if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0){//<< Here
+		
+		} else if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0){//<< Here
 			result.name = "Apple Safari";
 			var position = navigator.userAgent.search("Version") + 8;
 			var end = navigator.userAgent.search(" Safari");
 			result.version = navigator.userAgent.substring(position,end);
-		}
-		else if (navigator.userAgent.search("Opera") >= 0){
+		
+		} else if (navigator.userAgent.search("Opera") >= 0){
 			result.name = "Opera";
 			var position = navigator.userAgent.search("Version") + 8;
 			result.version = navigator.userAgent.substring(position);
-		}
-		else{
+		
+		} else{
 			result.name = "others";
 			result.version = "none";
 		}
@@ -382,19 +380,18 @@ console.log(this.elements);*/
 		alert(msg);
 	};
 
-
 	Oct.randomNum = function(start, stop, type) {
 
 		var random_num = makeRandom(stop);
 		start = start || 0;
-		stop = stop || 1;
-		type = type || "float";
+		stop  = stop  || 1;
+		type  = type  || "float";
 
 		while (random_num <= start){		//include the stop
 			random_num = makeRandom(stop);
 		}
 
-		if (type == "int") {
+		if (type === "int") {
 			random_num = parseInt(random_num);
 		}
 
@@ -410,7 +407,7 @@ console.log(this.elements);*/
 	Oct.global.namespace = function(str) {
 	  var arr = str.split("."), o = Oct.global;
 	  console.log(arr);
-	  for (var i = (arr[0] == "global") ? 1 : 0; i < arr.length; i++) {
+	  for (var i = (arr[0] === "global") ? 1 : 0; i < arr.length; i++) {
 	  	o[arr[i]] = o[arr[i]] || {};
 	  	o = o[arr[i]];
 	  }

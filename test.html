@@ -16,6 +16,7 @@
 		background: #0f0;
 	}
 	#test_img {
+		width: 150px;
 		position: absolute;
 		top: 120px;
 		left: 500px;
@@ -61,9 +62,14 @@
 
 	O("#box").children("&span", 1, 1).html("lalaaaaaaaaaaaaaaaaaaaaaaa");*/
 
-	O("#test2").click(function(){
-		alert("message");
-	}).setCss({height:"150px"});
+	O(".hi").addEvent("click", function(){
+		alert("hi");
+	})
+	.setCss({
+		width: "150px",
+		height: "150px"
+	});
+
 
 	// console.log(	O("#test2").height());
  var d =document.getElementById("test_img");
@@ -83,7 +89,6 @@ if (/msie/.test(userAgent) &&
 // console.dir(navigator);
 
 
-console.log(Oct.browswer().version);
 
 
 /*	console.log(Oct.GLOBAL);
