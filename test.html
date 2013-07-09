@@ -22,7 +22,8 @@
 		left: 500px;
 	}
 </style>
-	<div id="test" class="hi">sss</div>
+	<div id="test" class="hi aa">sss</div>
+	<div id="test bb" class="hi aa">sss2</div>
 	<div id="test3" class="hi">sss</div>
 	<div id="test4" class="hi">sss <b>444</b> <span id="child">555 <span>666</span> </span> </div>
 
@@ -47,7 +48,7 @@
 
 	<div id="test2">111</div>
 
-	<img src="img/laker.png" id="test_img" alt="">
+	<img src="img/laker.png" id="test_img" class="aa" alt="">
 
 	<script type="text/javascript" src="js/jquery-1.10.1.js"></script>
 	<script type="text/javascript" src="js/Octjs.js"></script>
@@ -63,53 +64,56 @@
 
 	O("#box").children("&span", 1, 1).html("lalaaaaaaaaaaaaaaaaaaaaaaa");*/
 
-	O(".hi").addEvent("click", function(){
+// O("#test").setCss({color:"#f00"});
+
+/*	O(".hi").addEvent("click", function(){
 		alert("hi");
 	})
 	.setCss({
 		width: "150px",
-		height: "150px"
-	});
-
+		height: "100px"
+		
+	});*/
 
 	// console.log(	O("#test2").height());
- var d =document.getElementById("test_img");
+ var d =document.getElementById("test");
  // d.style.filter = "alpha(opacity=40)" ;
+// console.dir(d);
 // console.dir(d.style);
 
-
-var userAgent = navigator.userAgent.toLowerCase();
-// Test if the browser is IE and check the version number is lower than 9
-if (/msie/.test(userAgent) && 
-    parseFloat((userAgent.match(/.*(?:rv|ie)[\/: ](.+?)([ \);]|$)/) || [])[1]) < 10) {
-  // Navigate to error page
-// alert("message");
+function person(name) {
+  this.name = name;
+  this.type = "animal";
+  this.say = function() {
+    console.log("say");
+  }
 }
-// alert(Oct.ieVerion());
+person.prototype.sing = function() {
+  console.log("sing");
+}
 
-console.dir(navigator);
-
-console.log(Oct.browswer().version);
-console.log(bowser);
-
-
-/*	console.log(Oct.GLOBAL);
-
-	
-	String.prototype.length = function() {
-		return "12";
-	}
-	var a = "sss";
-	console.log(a.length);*/
+// Oct.extend(person, student);
+	student.prototype = person.prototype;
+function student(name, id) {
+	this.id = id;
+	person.call(this, name);
+}
 
 
-	// console.log(Oct.ieVerion());
+var m = new student("mike", 1010);
+/*m.say();
+m.sing();
+*/
 
 
 
 
 
 
+console.log(O("#bb"));
+O("#bb").setCss({color:"#f00"});
+// O(".hi").addClass("tt");
+// console.log(O(".hi"));
 
 
 
@@ -118,33 +122,7 @@ console.log(bowser);
 
 
 
-	// O("#test_img").setCss({top:0}).setCss({left:"30px"});
-	// console.log(O("#test_img").getCss("top","left"));
-	// O("#box").children().html("lala");
 
-	// console.dir(O(".hi"));
-	// O("#text").setCss({"color": "#f00"});
-	// console.log(O("#test"));
-	// O("#test4", "", "&div").children("&span", 1, 1).html("888");
-	// O("&DIV").html("333");
-	// console.log("num=" + Oct.randomNum(0,20));
-
-/*	var  c = document.getElementsByTagName("div");
-	var arr = [];
-	console.dir(c[0].className);
-	for (var i = 0; i < c.length; i++) {
-		if (c[i].className == "hi") {
-	console.log(c[i].className );						
-			arr.push(c[i]);
-		}
-	}
-	console.log(arr);*/
-		
-/*		var x = "    .aaa   b";
-		console.log(x.indexOf("."));
-		console.log(x.replace(/^\s+/, ""));
-		console.log(x);
-		console.log(x.replace(/^\s+/, "").split(/\s+/));*/
 	</script>
 </body>
 </html>

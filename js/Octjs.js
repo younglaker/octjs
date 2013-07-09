@@ -15,14 +15,13 @@
 	};
 
 	Oct.version = "1.0";
-	var ss = 10;
 
 	//  selector: the elements you want.
 	//  root_id: the root's id of the elements'root you want.
 	//  tag: point out the specific tag of the selector. If none, it's document.
 	var Octobj = function(selector, root_id, tag) {
 
-		// args: the array stores the elements list splited by "selector".
+		// args: the array stores the tags in "root_id".
 		// type: id("#"), class(".") or tag("&").
 		// eles: temporary!!! store the str after"# . &"
 		var agrs, type, eles;
@@ -55,21 +54,35 @@
 		eles = selector[0].slice(1);
 
 		if (type === ".") {
-			for (var i = 0; i < args.length; i++) {
-				if (args[i].className == eles) {
-					this.elements.push(args[i]);
+			for (var i in args) {
+				if(args[i].className) {
+					var r = args[i].className.split(" ");
+					for (var j in r) {
+						if (r[j] === eles) {
+							this.elements.push(args[i]);
+						}
+					}
 				}
 			}
 		}
 
 		if (type === "#") {
-			this.elements.push(document.getElementById(eles));
+			for (var i in args) {
+				if(args[i].id) {
+					var r = args[i].id.split(" ");
+					for (var j in r) {
+						if (r[j] === eles) {
+							this.elements.push(args[i]);
+						}
+					}
+				}
+			}
 		}
 
 		if (type === "&") {
 			for (var i = 0; i < args.length; i++) {
 				// "args[i].tagName" in browswer recognize uppercase, so base on coding habbit, use lowercase to juge.
-				if (args[i].tagName.toLowerCase() == eles.toLowerCase()) {
+				if (args[i].tagName.toLowerCase() === eles.toLowerCase()) {
 					this.elements.push(args[i]);
 				}
 			}
@@ -106,7 +119,7 @@
 			this.each(function(eles) {
 
 				// "property_list" is a hash table.
-				// "name" stores the index of "property_list".
+				// "name" stores the index of "property_list".S
 				for (var name in property_list) {
 					eles.style[name] = property_list[name];
 				}
@@ -318,7 +331,7 @@ console.log(this.elements);*/
 
 	Oct.ieVerion = function() {
 	  var ua = navigator.userAgent;
-		return /msie/.test(ua) && parseFloat((ua.match(/.*(?:rv|ie)[\/: ](.+?)([ \);]|$)/) || [])[1]) || "This is not IE.";
+		return /msie/.test(ua) && parseFloat((ua.match(/.*(?:rv|ie)[\/: ](.+?)([ \);]|$)/) || [])[1]) || false;
 	}
 
 	Oct.browswer = function() {
@@ -328,11 +341,12 @@ console.log(this.elements);*/
 
 		if (/msie/i.test(ua)){
 			result.name = "IE";
-			result.version = ua.match(/msie (\d+(\.\d+)+);/i)[1];
+			// Or "/chrome\/((\d+.)+\d+)/i"
+			result.version = ua.match(/msie (\d+(\.\d+)+)+/i)[1];
 		
 		} else if (/chrome/i.test(ua)){
 			result.name = "Chrome";
-			result.version = ua.match(/chrome\/(\d+(\.\d+)*)/i)[1];
+			result.version = ua.match(/chrome\/(\d+(\.\d+)+)/i)[1];
 		
 		} else if (/firefox/i.test(ua)){
 			result.name = "Firefox";
@@ -406,5 +420,29 @@ console.log(this.elements);*/
 	  	o = o[arr[i]];
 	  }
 	}
+
+	// "trim()" is for lower than ie8
+	Oct.trim = function(str) {
+		return str.replace(/^\s+|\s+$/g, "");
+	}
+
+	String.prototype.trim = function(str) {
+		return this.replace(/^\s+|\s+$/g, "");
+	}
+
+	Oct.isEmpty = function(str) {
+		return /^\s*$/.test(str);
+	}
+
+	Oct.extend = function(super_class, sub_class) {
+	  var Extend = function() {};
+	  Extend.prototype = super_class.prototype;
+	  sub_class.prototype.constructor = super_class;
+	  sub_class.super_class = super_class.prototype;
+	  if (super_class.prototype.constructor == Object.prototype.constructor) {
+	  	super_class.prototype.constructor = super_class;
+	  }
+	}
+
 
 })();
