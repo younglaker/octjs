@@ -56,7 +56,9 @@
 		if (type === ".") {
 			for (var i in args) {
 				if(args[i].className) {
-					var r = args[i].className.split(" ");
+
+					// className maybe have more than one class, so split it by spaces
+					var r = args[i].className.split(/\s+/);
 					for (var j in r) {
 						if (r[j] === eles) {
 							this.elements.push(args[i]);
@@ -69,7 +71,7 @@
 		if (type === "#") {
 			for (var i in args) {
 				if(args[i].id) {
-					var r = args[i].id.split(" ");
+					var r = args[i].id.split(/\s+/);
 					for (var j in r) {
 						if (r[j] === eles) {
 							this.elements.push(args[i]);
@@ -80,7 +82,8 @@
 		}
 
 		if (type === "&") {
-			for (var i = 0; i < args.length; i++) {
+			for (var i in args) {
+				
 				// "args[i].tagName" in browswer recognize uppercase, so base on coding habbit, use lowercase to juge.
 				if (args[i].tagName.toLowerCase() === eles.toLowerCase()) {
 					this.elements.push(args[i]);
@@ -113,6 +116,73 @@
 			});
 	    return this;
 		},
+
+		add: function(str) {
+
+	  	// list: store valliables splited by "," and one or more space.
+	  	var list = str.split(/\,\s*/);
+	  	for (var i in list ) {
+
+	  		// type: id("#"), class(".") or tag("&").
+	  		// name: the name of id or class or tag.
+				type = list[i].charAt(0);
+				name = list[i].slice(1);
+
+				if (type === ".") {
+					this.each(function(eles) {
+
+						// If it doesnt have className before, then add "name" directly. Else id has className before, then add a spcace and "name" .
+						eles.className = eles.className + (eles.className == "" ? "" : " ") + name;
+					});
+				}
+
+				if (type === "#") {
+					this.each(function(eles) {
+					eles.id = eles.id + (eles.id == "" ? "" : " ") + name;
+					});
+				}
+			}
+	    return this;
+	  },
+
+	  remove: function(str) {
+	  	var list = str.split(/\,\s*/);
+	  	for (var i in list ) {
+				type = list[i].charAt(0);
+				name = list[i].slice(1);
+
+				if (type === ".") {
+					this.each(function(eles) {
+
+						// There maybe a space before the name.
+						eles.className = eles.className.replace(new RegExp("(^|\\s+)" + name), "");
+					});
+				}
+
+				if (type === "#") {
+					this.each(function(eles) {
+						eles.id = eles.id.replace(new RegExp("(^|\\s+)" + name), "");
+					});
+				}
+
+				if (type === "&") {
+					this.each(function(eles) {
+						for (var i in eles.childNodes) {
+
+							// "nodeType === 1" means ELEMENT_NODE. Because "childNodes" contains "TEXT_NODE" which doesnt have "tagName" and report error
+							if (eles.childNodes[i].nodeType === 1) {
+								if (eles.childNodes[i].tagName.toLowerCase() === name.toLowerCase()) {
+									eles.removeChild(eles.childNodes[i]);
+								}
+							}
+						}
+					});
+				}
+
+			}
+
+	    return this;
+	  },
 
 		setCss: function(property_list) {
 

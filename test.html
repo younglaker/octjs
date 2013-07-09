@@ -22,7 +22,7 @@
 		left: 500px;
 	}
 </style>
-	<div id="test" class="hi aa">sss</div>
+	<div id="test" class="hi aa">sss <span>aaa</span> </div>
 	<div id="test bb" class="hi aa">sss2</div>
 	<div id="test3" class="hi">sss</div>
 	<div id="test4" class="hi">sss <b>444</b> <span id="child">555 <span>666</span> </span> </div>
@@ -110,12 +110,15 @@ m.sing();
 
 
 
-console.log(O("#bb"));
-O("#bb").setCss({color:"#f00"});
+O(".aa").setCss({color:"#f00"});
+O("#test").remove("&span");
+// O("#test").add("#cc, .dd");
+console.dir(O("#test"));
 // O(".hi").addClass("tt");
-// console.log(O(".hi"));
-
-
+console.log(d);
+td = document.createElement("span");
+td.textContent = "eeeeeeeeeeeeeeeeeeeeeeee";
+d.appendChild(td);
 
 
 
