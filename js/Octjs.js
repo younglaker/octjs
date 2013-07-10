@@ -235,9 +235,17 @@
 			this.each(function(eles) {
 
 				// "property_list" is a hash table.
-				// "name" stores the index of "property_list".S
+				// "name" stores the index of "property_list".
 				for (var name in property_list) {
-					eles.style[name] = property_list[name];
+
+					// Deal with the situation like "background-color", turn into "backgroundColor".
+					var new_name = name;
+					if (name.match("-")) {
+						var p = name.match("-").index + 1;
+						var c = name.charAt(p).toUpperCase();
+						new_name = name.replace(/-\w/, c);
+					}
+					eles.style[new_name] = property_list[name];
 				}
 			});
 
@@ -254,16 +262,30 @@
 			// IE
 			if (document.documentElement.currentStyle) {
 				this.each(function(eles) {
-					for (var i in property_name){
-						property_val.push(eles.currentStyle[property_name[i]]);	
+					for (var name in property_name){
+
+						// Deal with the situation like "background-color", turn into "backgroundColor".
+						var new_name = property_name[name];
+						if (name.match("-")) {
+							var p = name.match("-").index + 1;
+							var c = name.charAt(p).toUpperCase();
+							new_name = name.replace(/-\w/, c);
+						}						
+						property_val.push(eles.currentStyle[new_name]);	
 					}
 				});
 
 			// not IE
 			} else if (window.getComputedStyle) {
 				this.each(function(eles) {
-					for (var i in property_name){
-						property_val.push(window.getComputedStyle(eles, null).getPropertyValue(property_name[i]));
+					for (var name in property_name){
+						var new_name = property_name[name];
+						if (name.match("-")) {
+							var p = name.match("-").index + 1;
+							var c = name.charAt(p).toUpperCase();
+							new_name = name.replace(/-\w/, c);
+						}							
+						property_val.push(window.getComputedStyle(eles, null).getPropertyValue(new_name));
 					}
 				});
 			}
@@ -550,7 +572,7 @@ console.log(this.elements);*/
 		return /^\s*$/.test(str);
 	}
 
-	Oct.extend = function(super_class, sub_class) {
+/*	Oct.extend = function(super_class, sub_class) {
 	  var Extend = function() {};
 	  Extend.prototype = super_class.prototype;
 	  sub_class.prototype.constructor = super_class;
@@ -558,6 +580,18 @@ console.log(this.elements);*/
 	  if (super_class.prototype.constructor == Object.prototype.constructor) {
 	  	super_class.prototype.constructor = super_class;
 	  }
+	}*/
+
+	Oct.extendPro = function(super_class, sub_class) {
+		sub_class.prototype = super_class.prototype;
+	}
+
+	Oct.extendFn = function(super_class, ds, name) {
+		var args = [];
+		for (var i = 2; i < arguments.length; i++) {
+			args.push(arguments[i]);
+		}
+		super_class.apply(ds, args);
 	}
 
 

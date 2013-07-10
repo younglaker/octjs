@@ -6,7 +6,9 @@ Set css property.
 
 ### Syntax
 	O("").setCss({ property: value, property2: value2, ... })  => self
-	// PS: make sure you have use "{}" in "()".
+	// PS: 
+	// 1: Make sure you have use "{}" in "()". 
+	// 2: Can use both "backgroundColor" and "background-color" and so on. If use "backgroundColor", you dont have to add double quotation, but "background-color" must.
 
 ### Demo
 

@@ -64,7 +64,8 @@
 
 	O("#box").children("&span", 1, 1).html("lalaaaaaaaaaaaaaaaaaaaaaaa");*/
 
-// O("#test").setCss({color:"#f00"});
+O("#test").setCss({"color": "#00f"});
+
 
 /*	O(".hi").addEvent("click", function(){
 		alert("hi");
@@ -72,7 +73,6 @@
 	.setCss({
 		width: "150px",
 		height: "100px"
-		
 	});*/
 
 	// console.log(	O("#test2").height());
@@ -81,41 +81,36 @@
 // console.dir(d);
 // console.dir(d.style);
 
-function person(name) {
+function person(name, sex) {
   this.name = name;
+  this.sex = sex;
   this.type = "animal";
   this.say = function() {
-    console.log("say");
+    console.log("sex=" + sex);
   }
 }
 person.prototype.sing = function() {
   console.log("sing");
 }
 
-// Oct.extend(person, student);
-	student.prototype = person.prototype;
-function student(name, id) {
+Oct.extendPro(person, student);
+	// student.prototype = person.prototype;
+function student(name, sex, id) {
+	Oct.extendFn(person, this, name ,sex);
+	// person.call(this, name ,sex);
 	this.id = id;
-	person.call(this, name);
 }
 
 
-var m = new student("mike", 1010);
-/*m.say();
+var m = new student("mike", "f", 1010);
+m.say();
 m.sing();
-*/
+console.log(m.sex);
 
 
 
 
 
-
-// O(".aa").setCss({color:"#f0f"});
-// O("#test").remove("&span");
-// O("#test").add("#cc, .dd");
-console.dir(O("#test").has("&span").setCss({color:"#f0f"}));
-// O(".hi").addClass("tt");
-// console.log($('#test').has('span').css('background-color', 'red'));
 /*td = document.createElement("span");
 td.textContent = "eeeeeeeeeeeeeeeeeeeeeeee";
 d.appendChild(td);*/
