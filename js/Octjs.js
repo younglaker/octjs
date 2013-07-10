@@ -99,7 +99,7 @@
 	Octobj.prototype = {
 
 		each: function(fun) {
-			for (var c = 0; c < this.elements.length; c++) {
+			for (var c in this.elements) {
 
 				// use "this.elements[]" to raplace "this" in the "fun",so it doesn't have to use "this.elements" to call the "fun".
 				fun.call(this, this.elements[c]);
@@ -138,7 +138,7 @@
 
 				if (type === "#") {
 					this.each(function(eles) {
-					eles.id = eles.id + (eles.id == "" ? "" : " ") + name;
+						eles.id = eles.id + (eles.id == "" ? "" : " ") + name;
 					});
 				}
 			}
@@ -167,12 +167,12 @@
 
 				if (type === "&") {
 					this.each(function(eles) {
-						for (var i in eles.childNodes) {
+						for (var j in eles.childNodes) {
 
 							// "nodeType === 1" means ELEMENT_NODE. Because "childNodes" contains "TEXT_NODE" which doesnt have "tagName" and report error
-							if (eles.childNodes[i].nodeType === 1) {
-								if (eles.childNodes[i].tagName.toLowerCase() === name.toLowerCase()) {
-									eles.removeChild(eles.childNodes[i]);
+							if (eles.childNodes[j].nodeType === 1) {
+								if (eles.childNodes[j].tagName.toLowerCase() === name.toLowerCase()) {
+									eles.removeChild(eles.childNodes[j]);
 								}
 							}
 						}
@@ -182,6 +182,52 @@
 			}
 
 	    return this;
+	  },
+
+	  has: function(str) {
+	  	var list = str.split(/\,\s*/);
+	  	var ele_arr = [];
+	  	for (var i in list ) {
+				type = list[i].charAt(0);
+				name = list[i].slice(1);
+
+
+				if (type === ".") {
+					this.each(function(eles) {
+						if (eles.className.match(name)) {
+							ele_arr.push(eles);
+						}
+					});
+				}
+
+				if (type === "#") {
+					this.each(function(eles) {
+						if (eles.id.match(name)) {
+							ele_arr.push(eles);
+						}
+					});
+				}
+
+
+				if (type === "&") {
+					this.each(function(eles) {
+						for (var j in eles.childNodes) {
+
+							// "nodeType === 1" means ELEMENT_NODE. Because "childNodes" contains "TEXT_NODE" which doesnt have "tagName" and report error
+							if (eles.childNodes[j].nodeType === 1) {
+								if (eles.childNodes[j].tagName.toLowerCase() === name.toLowerCase()) {
+									ele_arr.push(eles);
+								}
+							}
+						}
+					});
+				}
+
+				this.elements = ele_arr;
+				ele_arr = [];
+			}
+
+			return this;
 	  },
 
 		setCss: function(property_list) {
