@@ -81,39 +81,59 @@ O("#test").setCss({"color": "#00f"});
 // console.dir(d);
 // console.dir(d.style);
 
-function person(name, sex) {
-  this.name = name;
-  this.sex = sex;
-  this.type = "animal";
-  this.say = function() {
-    console.log("sex=" + sex);
-  }
-}
-person.prototype.sing = function() {
-  console.log("sing");
-}
-
-Oct.extendPro(person, student);
-	// student.prototype = person.prototype;
-function student(name, sex, id) {
-	Oct.extendFn(person, this, name ,sex);
-	// person.call(this, name ,sex);
-	this.id = id;
-}
-
-
-var m = new student("mike", "f", 1010);
-m.say();
-m.sing();
-console.log(m.sex);
-
-
-
-
+ 
 
 /*td = document.createElement("span");
 td.textContent = "eeeeeeeeeeeeeeeeeeeeeeee";
 d.appendChild(td);*/
+
+
+// document.cookie = "id=222; expirationdate=3000; path=/";
+
+// Oct.cookie.set("id1","2qqawwww");
+Oct.cookie.set({item:"id5", value:"5",expires: 7},{item:"id6", value:"ww",expires: 9});
+// Oct.cookie.set("id3","333", { expires: 7, path: '/', secure: "true" });
+
+
+console.log(Oct.cookie.read("id5","id6"));
+Oct.cookie.remove("id5","id6");
+console.log(Oct.cookie.read("id5","id6"));
+/*
+var q=new Date();
+console.log(q);
+console.log(q.toUTCString());
+console.log(q.toGMTString());*/
+// setCookie("id","222",2000);
+
+function getCookie(c_name)
+{
+	if (document.cookie.length>0)
+	{ 
+		c_start=document.cookie.indexOf(c_name + "=");
+		if (c_start!=-1)
+		{ 
+			c_start=c_start + c_name.length+1 ;
+			c_end=document.cookie.indexOf(";",c_start);
+			if (c_end==-1) c_end=document.cookie.length;
+			return unescape(document.cookie.substring(c_start,c_end));
+		} 
+	}
+	return ""
+}
+
+function setCookie(c_name,value,expiredays)
+{
+	var exdate=new Date();
+	exdate.setDate(exdate.getDate()+expiredays);
+	document.cookie=c_name+ "=" +escape(value)+
+	((expiredays==null) ? "" : "; expires="+exdate.toGMTString());
+}
+
+
+/*console.log(document.cookie);
+console.log(document.cookie.length);
+console.log(getCookie("id6"));*/
+
 
 
 

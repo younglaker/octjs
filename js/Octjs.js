@@ -291,7 +291,7 @@
 			}
 
 			// Turn array into string.
-			return property_val.join(",");
+			return property_val;
 		},
 
 		height: function() {
@@ -592,6 +592,70 @@ console.log(this.elements);*/
 			args.push(arguments[i]);
 		}
 		super_class.apply(ds, args);
+	}
+
+	Oct.isExist = function(arg) {
+		return typeof arg !== undefined;
+	}
+
+	Oct.cookie = {
+		set: function(options) {
+			for (var i in arguments) {
+				if (arguments[i].value !== undefined) {
+					if (arguments[i] === undefined) {
+						arguments[i] = {expires: "", path: "", domain: "", secure: ""};
+					} else {
+						arguments[i].expires = parseInt(arguments[i].expires);
+						if (typeof arguments[i].expires === "number") {
+							var days = arguments[i].expires,
+									t = arguments[i].expires = new Date();
+							// Caculate the day and set.
+							t.setDate(t.getDate() + days);
+						}
+					}
+
+					document.cookie = [
+						arguments[i].item,
+						"=",
+						arguments[i].value,
+						arguments[i].expires ? "; expires=" + arguments[i].expires.toUTCString() : "",
+						arguments[i].path    ? "; path=" + arguments[i].path : "",
+						arguments[i].domain  ? "; domain=" + arguments[i].domain : "",
+						arguments[i].secure  ? "; secure" : ""
+					].join("");
+				}
+			}
+		},
+
+		read: function() {
+			if (document.cookie !== "") {
+				var cookies_arr = document.cookie.split(/=|;\s?/);
+				var result_arr = [];
+				for (var i in arguments) {
+					for (var j = 0; j < cookies_arr.length; j = j + 2) {
+						if (cookies_arr[j] === arguments[i]) {
+							result_arr.push(cookies_arr[j+1]);
+						}
+					}
+				}
+			}
+			return result_arr;
+		},
+
+		remove: function() {
+			if (document.cookie !== "") {
+				var cookies_arr = document.cookie.split(/=|;\s?/);
+				for (var i in arguments) {
+					for (var j = 0; j < cookies_arr.length; j = j + 2) {
+						if (cookies_arr[j] === arguments[i]) {
+							// document.cookie = cookies_arr[j] + ""
+							Oct.cookie.set({item: cookies_arr[j], value: cookies_arr[j+1], expires: -1});
+						}
+					}
+				}
+			}
+		}
+
 	}
 
 
