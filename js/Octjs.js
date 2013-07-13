@@ -645,10 +645,17 @@ console.log(this.elements);*/
 		remove: function() {
 			if (document.cookie !== "") {
 				var cookies_arr = document.cookie.split(/=|;\s?/);
+				console.log(arguments.length);
+				if (arguments.length === 0) {
+					for (var j = 0; j < cookies_arr.length; j = j + 2) {
+						console.log("message");
+						Oct.cookie.set({item: cookies_arr[j], value: cookies_arr[j+1], expires: -1});
+					}
+				}
+
 				for (var i in arguments) {
 					for (var j = 0; j < cookies_arr.length; j = j + 2) {
 						if (cookies_arr[j] === arguments[i]) {
-							// document.cookie = cookies_arr[j] + ""
 							Oct.cookie.set({item: cookies_arr[j], value: cookies_arr[j+1], expires: -1});
 						}
 					}
