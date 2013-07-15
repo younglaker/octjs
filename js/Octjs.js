@@ -377,13 +377,12 @@
 			}
 			console.log(this.elements);
 */
-			
-/*			var curr_ele = this.elements[0];
+		/*	
+			var curr_ele = this.elements[0];
 			selector = selector.slice(1);
 			console.log(selector);
 			this.elements = [];
 			for (var i = 0; i <= level_stop; i++) {
-console.log(curr_ele);
 				while(!curr_ele.firstElementChild) {
 					curr_ele = curr_ele.nextElementSibling;
 					console.log("1");
@@ -391,14 +390,15 @@ console.log(curr_ele);
 
 				curr_ele = curr_ele.firstElementChild;
 
-				if (i >= level_start && curr_ele == selector) {
+console.log(curr_ele.tagName);
+				if (i >= level_start && curr_ele.tagName == selector) {
 					this.elements.push(curr_ele);
 					console.log("2");
 				}
 
 				while (curr_ele.nextElementSibling) {
 					curr_ele = curr_ele.nextElementSibling;
-					console.log(curr_ele);
+					// console.log(curr_ele);
 
 					if (i >= level_start && curr_ele == selector) {
 						console.log("4");
@@ -413,10 +413,71 @@ console.log(curr_ele);
 
 				while (i > 0 && curr_ele.parentElement.nextElementSibling) {
 					console.log("6");
-					curr_ele = curr_ele.parentElement.nextElementSibling
+					curr_ele = curr_ele.parentElement.nextElementSibling;
 				}
 			}
-console.log(this.elements);*/
+console.log(this.elements);
+			return this;*/
+		},
+
+		son: function(selector) {
+			var curr;
+			var sons = [];
+			var type = selector[0].charAt(0);
+			var name = selector.slice(1);
+
+			if (type === ".") {
+				this.each(function(eles) {
+					curr = eles.firstElementChild;
+
+					if (curr.className.match(name)) {
+						sons.push(curr);
+					}
+
+					while (curr.nextElementSibling) {
+						curr = curr.nextElementSibling;
+						if (curr.className.match(name)) {
+							sons.push(curr);
+						}
+					}	
+				});
+			}
+
+			if (type === "#") {
+				this.each(function(eles) {
+					curr = eles.firstElementChild;
+
+					if (curr.id.match(name)) {
+						sons.push(curr);
+					}
+
+					while (curr.nextElementSibling) {
+						curr = curr.nextElementSibling;
+						if (curr.id.match(name)) {
+							sons.push(curr);
+						}
+					}	
+				});
+			}
+
+			if (type === "&") {
+				this.each(function(eles) {
+					curr = eles.firstElementChild;
+
+					if (name === curr.tagName.toLowerCase()) {
+						sons.push(curr);
+					}
+
+					while (curr.nextElementSibling) {
+						curr = curr.nextElementSibling;
+						if (name.toLowerCase() === curr.tagName.toLowerCase()) {
+							sons.push(curr);
+						}
+					}	
+				});
+			}
+
+			this.elements = sons;
 			return this;
 		},
 
