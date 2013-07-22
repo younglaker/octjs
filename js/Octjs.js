@@ -68,7 +68,7 @@
 			}
 		}
 
-		if (type === "#") {
+		else if (type === "#") {
 			for (var i in args) {
 				if(args[i].id) {
 					var r = args[i].id.split(/\s+/);
@@ -81,7 +81,7 @@
 			}
 		}
 
-		if (type === "&") {
+		else if (type === "&") {
 			for (var i in args) {
 				
 				// "args[i].tagName" in browswer recognize uppercase, so base on coding habbit, use lowercase to juge.
@@ -136,7 +136,7 @@
 					});
 				}
 
-				if (type === "#") {
+				else if (type === "#") {
 					this.each(function(eles) {
 						eles.id = eles.id + (eles.id == "" ? "" : " ") + name;
 					});
@@ -159,13 +159,13 @@
 					});
 				}
 
-				if (type === "#") {
+				else if (type === "#") {
 					this.each(function(eles) {
 						eles.id = eles.id.replace(new RegExp("(^|\\s+)" + name), "");
 					});
 				}
 
-				if (type === "&") {
+				else if (type === "&") {
 					this.each(function(eles) {
 						for (var j in eles.childNodes) {
 
@@ -200,7 +200,7 @@
 					});
 				}
 
-				if (type === "#") {
+				else if (type === "#") {
 					this.each(function(eles) {
 						if (eles.id.match(name)) {
 							ele_arr.push(eles);
@@ -209,7 +209,7 @@
 				}
 
 
-				if (type === "&") {
+				else if (type === "&") {
 					this.each(function(eles) {
 						for (var j in eles.childNodes) {
 
@@ -439,11 +439,11 @@ console.log(this.elements);
 						if (curr.className.match(name)) {
 							sons.push(curr);
 						}
-					}	
+					}
 				});
 			}
 
-			if (type === "#") {
+			else if (type === "#") {
 				this.each(function(eles) {
 					curr = eles.firstElementChild;
 
@@ -460,7 +460,7 @@ console.log(this.elements);
 				});
 			}
 
-			if (type === "&") {
+			else if (type === "&") {
 				this.each(function(eles) {
 					curr = eles.firstElementChild;
 
@@ -633,6 +633,11 @@ console.log(this.elements);
 		return /^\s*$/.test(str);
 	}
 
+	Oct.type = function(arg) {
+		// Avoid when typeof "null" value return "object"
+		return (arg === "null") ? "null" : (typeof arg);
+	}
+
 /*	Oct.extend = function(super_class, sub_class) {
 	  var Extend = function() {};
 	  Extend.prototype = super_class.prototype;
@@ -724,6 +729,22 @@ console.log(this.elements);
 			}
 		}
 
+	}
+
+	String.prototype.lengthdb = function() {
+		var counts = 0, l = this.length;
+		if (l) {
+			for (var i = l; i--;) {
+				if (this.charCodeAt(i) > 255) {
+					counts += 2;
+				} else {
+					counts++;
+				}
+			}
+			return counts;
+		} else {
+			return 0;
+		}
 	}
 
 
