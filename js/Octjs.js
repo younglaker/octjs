@@ -622,11 +622,11 @@ console.log(this.elements);
 
 	// "trim()" is for lower than ie8
 	Oct.trim = function(str) {
-		return str.replace(/^\s+|\s+$/g, "");
-	}
-
-	String.prototype.trim = function(str) {
-		return this.replace(/^\s+|\s+$/g, "");
+		if (String.prototype.trim) {
+			return str.trim();
+		} else {
+			return str.replace(/^\s+|\s+$/g, "");
+		}
 	}
 
 	Oct.isEmpty = function(str) {
@@ -714,7 +714,6 @@ console.log(this.elements);
 				console.log(arguments.length);
 				if (arguments.length === 0) {
 					for (var j = 0; j < cookies_arr.length; j = j + 2) {
-						console.log("message");
 						Oct.cookie.set({item: cookies_arr[j], value: cookies_arr[j+1], expires: -1});
 					}
 				}
@@ -745,6 +744,29 @@ console.log(this.elements);
 		} else {
 			return 0;
 		}
+	}
+
+	Oct.isArray = function(value) {
+		return Object.prototype.toString.apply(value) === "[object Array]";
+	}
+
+	Oct.matrix = function(line, row, init) {
+		var a = [], mat = [];
+		init = init || "";
+		if (line === 1) {
+			for (var i = row; i--;) {
+				mat[i] = init;
+			}
+		} else {
+			for (var i = line; i--;) {
+				a = [];
+				for (var j = row; j--;) {
+					a[j] = init;
+				}
+				mat[i] = a;
+			}
+		}
+		return mat;
 	}
 
 
