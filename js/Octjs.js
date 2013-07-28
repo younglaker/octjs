@@ -769,5 +769,48 @@ console.log(this.elements);
 		return mat;
 	}
 
+	var merge = function(left, right, positive) {
+		var result = [];
+		while (left.length > 0 && right.length > 0) {
+			if (left[0] < right[0]) {
+				result.push(left.shift());
+			} else {
+				result.push(right.shift());
+			}
+		}
+		return result.concat(left, right);
+	}
+
+	Oct.mergeSort = function(items, positive) {
+		// Cant use "positive = positive || true". Cuz if positive=false, the "||" will make positive true, and cant get false any way.
+		positive = positive === true || positive === undefined ? true : false;
+		if (items.length === 1) {
+			return items;
+		}
+
+		var r = [], result = [], len_i = items.length, len_r;
+		for (var i = 0; i < len_i; i++) {
+			r.push([items[i]]);
+		}
+
+		for (var lim = len_i; lim > 1; lim = (lim + 1) / 2) {
+			for (var j = 0, k = 0; k < lim; j++, k += 2) {
+				r[j] = merge(r[k], r[k + 1], positive);
+			}
+			r[j] = [];
+		}
+		
+		len_r = r.length;
+		r = r[0];
+		if (positive === true) {
+			result = r;
+		} else {
+			for (var i = 0; i < len_r; i++) {
+				result[i] = r[len_r - 1 -i];
+			}
+		}
+		return result;
+	}
+	
 
 })();

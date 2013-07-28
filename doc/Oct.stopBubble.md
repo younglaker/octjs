@@ -7,8 +7,6 @@ Cancle event bubbling.
 ### Syntax
 	Oct.stopBubble();  => none
 
-- ____args: ____args description
-
 ### Demo
 
 1.Stop bubbling.
