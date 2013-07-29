@@ -481,13 +481,22 @@ console.log(this.elements);
 			return this;
 		},
 
-		addEvent: function(event_type, fn) {
+/*		addEvent: function(event_type, fn) {
 			this.each(function(eles) {
 				if (eles.addEventListener) {
 					eles.addEventListener(event_type, fn, false);
 				} else if (eles.attachEvent) {
 					eles.attachEvent("on" + event_type, fn);
 				}
+			});
+			return this;
+		},*/
+
+		addEvent: function(event_type, fn) {
+			addEvent = document.addEventListener ? this.each(function(eles) {
+				eles.addEventListener(event_type, fn, false);
+			}) : this.each(function(eles) {
+				eles.attachEvent("on" + event_type, fn);
 			});
 			return this;
 		},
@@ -811,6 +820,31 @@ console.log(this.elements);
 		}
 		return result;
 	}
+
+	Oct = {
+		test: function() {
+		    console.log("message");
+		},
+
+		extend: function(name, func) {
+			if (!this[name]) {
+				this["bb"] = func;
+			}
+			return this;
+		}
+	};
 	
+	// Oct.prototype = Octobj.prototype;
+
+	Function.prototype.method = function(name, func) {
+		if (!this.prototype[name]) {
+			this.prototype[name] = func;
+			return this;
+		}
+	}
+
+	Oct.extend('bb', function() {
+		console.log("33");
+	})
 
 })();
