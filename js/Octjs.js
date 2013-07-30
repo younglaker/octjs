@@ -98,11 +98,11 @@
 
 	Octobj.prototype = {
 
-		each: function(fun) {
+		each: function(fn) {
 			for (var c in this.elements) {
 
-				// use "this.elements[]" to raplace "this" in the "fun",so it doesn't have to use "this.elements" to call the "fun".
-				fun.call(this, this.elements[c]);
+				// use "this.elements[]" to raplace "this" in the "fn",so it doesn't have to use "this.elements" to call the "fn".
+				fn.call(this, this.elements[c]);
 			}
 
 			// here, "this" is the "Octobj" object,so do all the function.
@@ -739,22 +739,6 @@ console.log(this.elements);
 
 	}
 
-	String.prototype.lengthdb = function() {
-		var counts = 0, l = this.length;
-		if (l) {
-			for (var i = l; i--;) {
-				if (this.charCodeAt(i) > 255) {
-					counts += 2;
-				} else {
-					counts++;
-				}
-			}
-			return counts;
-		} else {
-			return 0;
-		}
-	}
-
 	Oct.isArray = function(value) {
 		return Object.prototype.toString.apply(value) === "[object Array]";
 	}
@@ -834,17 +818,33 @@ console.log(this.elements);
 		}
 	};
 	
-	// Oct.prototype = Octobj.prototype;
 
-	Function.prototype.method = function(name, func) {
+	Function.prototype.method = function(name, fn) {
 		if (!this.prototype[name]) {
-			this.prototype[name] = func;
+			this.prototype[name] = fn;
 			return this;
 		}
 	}
 
-	Oct.extend('bb', function() {
-		console.log("33");
-	})
+	String.method("lengthdb", function() {
+		var counts = 0, len = this.length;
+		if (len) {
+			for (var i = len; i--;) {
+				if (this.charCodeAt(i) > 255) {
+					counts += 2;
+				} else {
+					counts++;
+				}
+			}
+			return counts;
+		} else {
+			return 0;
+		}
+	});
+
+	Number.method("int", function() {
+		return Math[this < 0 ? "ceil" : "floor"](this);
+	});
+
 
 })();
