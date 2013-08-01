@@ -845,6 +845,41 @@ console.log(this.elements);
 	Number.method("int", function() {
 		return Math[this < 0 ? "ceil" : "floor"](this);
 	});
+	
+	Oct.sort = {
+		asc: function(a, b) {
+			return a - b;
+		},
+		des: function(a, b) {
+			return b - a;
+		},
+		depNum: function(a, b) {
+			if (a > Math.floor(a)) {
+				return 1;
+			}
+			if (b > Math.floor(b)) {
+				return -1;
+			}
+		},
+		noCaseAsc: function(a, b) {
+			var a = a.toLowerCase(),
+					b = b.toLowerCase();
+			if (a > b) {
+				return 1;
+			} else {
+				return -1;
+			}
+		},
+		noCaseDes: function(a, b) {
+			var a = a.toLowerCase(),
+					b = b.toLowerCase();
+			if (a < b) {
+				return 1;
+			} else {
+				return -1;
+			}
+		}
+	};
 
 
 })();
