@@ -1,16 +1,17 @@
-## Oct.extendPro()
+## Oct.inheFn( )
 
 ### Description
 
-Extend prototype. It should write before the son class.
+Inherit construct function. It should write inside the son class.
 
 ### Syntax
-	Oct.extendPro(super_class, sub_class)  => none
+	Oct.inheFn(super_class, this, arg1[, arg2 ...])  => none
 
 - super_class: <String>. Father class name.
 
-- sub_class: <String>. Son class name.
+- this: Just use "this".
 
+- arg: The arguments should inherit from father. Make sure the order is the same as its father.
 
 ### Demo
 
@@ -29,10 +30,10 @@ Extend prototype. It should write before the son class.
 	  console.log("sing");
 	}
 
-	Oct.extendPro(Person, Student);
+	Oct.inhePro(Person, Student);
 
 	function Student(name, sex, id) {
-		Oct.extendFn(Person, this, name ,sex);
+		Oct.inheFn(Person, this, name ,sex);
 		this.id = id;
 	}
 

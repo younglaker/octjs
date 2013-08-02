@@ -72,7 +72,7 @@
 	<img src="img/laker.png" id="test_img" class="aa" alt="">
 
 	<script type="text/javascript" src="reference/jquery-1.10.1.js"></script>
-	<script type="text/javascript" src="js/Octjs.js"></script>
+	<script type="text/javascript" src="octjs/octjs.js"></script>
 	<script type="text/javascript">
 	// var a = "aa nn mm";
 	// console.log(a.charAt(2));
@@ -86,15 +86,15 @@
 	// O("#box").son(".kk").setCss({"color": "#f00"});
 
 // O("#test").setCss({"color": "#00f"});
+console.log(O("#box").son());
 
-
-	O(".hi").addEvent("click", function(){
+/*	O(".hi").addEvent("click", function(){
 		alert("hi");
 	})
 	.setCss({
 		width: "150px",
 		height: "100px"
-	});
+	});*/
 
 	// console.log(	O("#test2").height());
  var d =document.getElementById("test");
@@ -111,8 +111,12 @@ d.appendChild(td);*/
 /*O("#test2").add("#33").setCss({color: "#f0f"});
 	console.log(O("#test2"));*/
 
+var a = Oct.tag("p");
+console.log(a);
+document.write(Oct.tag("p","88888888888888888888"));
+// document.write( Oct.tag("<br>"));
 
-
+console.log("br /".replace(/\.*/, ""));
 
 
 

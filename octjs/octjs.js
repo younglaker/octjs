@@ -96,6 +96,7 @@
 		return this;
 	};
 
+/**************************** Octobj.Fn ***********************************/
 	Octobj.prototype = {
 
 		each: function(fn) {
@@ -423,8 +424,8 @@ console.log(this.elements);
 		son: function(selector) {
 			var curr;
 			var sons = [];
-			var type = selector[0].charAt(0);
-			var name = selector.slice(1);
+			var type = selector ? selector[0].charAt(0) : "";
+			var name = selector ? selector.slice(1) : "";
 
 			if (type === ".") {
 				this.each(function(eles) {
@@ -477,6 +478,19 @@ console.log(this.elements);
 				});
 			}
 
+			else if (type === "") {
+				console.log("message");
+				this.each(function(eles) {
+					curr = eles.firstElementChild;
+					sons.push(curr);
+
+					while (curr.nextElementSibling) {
+						curr = curr.nextElementSibling;
+						sons.push(curr);
+					}
+				});
+			}
+console.log(sons);
 			this.elements = sons;
 			return this;
 		},
@@ -537,6 +551,7 @@ console.log(this.elements);
 
 	};
 
+/**************************** Oct.Fn ***********************************/
 	Oct.ieVerion = function() {
 	  var ua = navigator.userAgent;
 		return /msie/.test(ua) && parseFloat((ua.match(/.*(?:rv|ie)[\/: ](.+?)([ \);]|$)/) || [])[1]) || false;
@@ -657,11 +672,11 @@ console.log(this.elements);
 	  }
 	}*/
 
-	Oct.extendPro = function(super_class, sub_class) {
+	Oct.inhePro = function(super_class, sub_class) {
 		sub_class.prototype = super_class.prototype;
 	}
 
-	Oct.extendFn = function(super_class, ds, name) {
+	Oct.inheFn = function(super_class, ds, name) {
 		var args = [];
 		for (var i = 2; i < arguments.length; i++) {
 			args.push(arguments[i]);
@@ -815,6 +830,13 @@ console.log(this.elements);
 				this["bb"] = func;
 			}
 			return this;
+		},
+
+		tag: function(tag, cxt) {
+			var stag = "<" + tag + ">",
+					etag = "</" + tag + ">";
+			ctx = cxt || ""
+			return stag + ctx + etag;
 		}
 	};
 	
