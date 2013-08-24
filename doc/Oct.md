@@ -7,7 +7,7 @@ Create a Oct collection object by performing a CSS selector, wrapping DOM nodes,
 ### Syntax
 	O("selector[, root_id, tag]")  => collection
 
-- selector: the elements you want.
+- selector: the elements you want. The id ueses prefix "#", class ueses ".", and tag ueses "&".
 
 - root_id: the root's id of the elements'root you want.
 

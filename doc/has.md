@@ -7,7 +7,7 @@ Select the object which has the specifical id, class or tag.
 ### Syntax
 	O("").has("#/.name1[, #/.name2 ... ]")  => self
 
-- name: The id or class name. The id has prefix "#", class has ".", and tag had "&".
+- name: The id or class name. The id ueses prefix "#", class ueses ".", and tag ueses "&".
 
 ### Demo
 

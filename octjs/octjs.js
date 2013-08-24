@@ -335,6 +335,15 @@
 			alert("message");
 		},
 
+		parent: function() {
+			var parent = [];
+			this.each(function(eles) {
+				parent.push(eles.parentNode);
+			});
+			this.elements = parent;
+			return this;
+		},
+
 		children: function(selector, level_start, level_stop) {
 /*			var tem_elements = this.elements;
 			var tem_tags = [], tags_array = [];
