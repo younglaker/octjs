@@ -83,7 +83,7 @@
 
 		else if (type === "&") {
 			for (var i in args) {
-				
+
 				// "args[i].tagName" in browswer recognize uppercase, so base on coding habbit, use lowercase to juge.
 				if (args[i].tagName.toLowerCase() === eles.toLowerCase()) {
 					this.elements.push(args[i]);
@@ -492,7 +492,7 @@ console.log(this.elements);
 				this.each(function(eles) {
 					curr = eles.firstElementChild;
 					sons.push(curr);
-
+console.dir(curr.parentNode);
 					while (curr.nextElementSibling) {
 						curr = curr.nextElementSibling;
 						sons.push(curr);
@@ -575,23 +575,23 @@ console.log(sons);
 			result.name = "IE";
 			// Or "/chrome\/((\d+.)+\d+)/i"
 			result.version = ua.match(/msie (\d+(\.\d+)+)+/i)[1];
-		
+
 		} else if (/chrome/i.test(ua)){
 			result.name = "Chrome";
 			result.version = ua.match(/chrome\/(\d+(\.\d+)+)/i)[1];
-		
+
 		} else if (/firefox/i.test(ua)){
 			result.name = "Firefox";
 			result.version = ua.match(/firefox\/(\d+(\.\d+)+)/i)[1];
-		
+
 		} else if (/safari/i.test(ua) && !/chrome/i.test(ua)){
 			result.name = "Safari";
 			result.version = ua.match(webkitVersion)[1];
-		
+
 		} else if (/opera/i.test(ua)){
 			result.name = "Opera";
 			result.version = ua.match(webkitVersion)[1];
-		
+
 		} else {
 			result.name = "Others";
 			result.version = "NaN";
@@ -816,7 +816,7 @@ console.log(sons);
 			}
 			r[j] = [];
 		}
-		
+
 		len_r = r.length;
 		r = r[0];
 		if (positive === true) {
@@ -848,7 +848,7 @@ console.log(sons);
 			return stag + ctx + etag;
 		}
 	};
-	
+
 
 	Function.prototype.method = function(name, fn) {
 		if (!this.prototype[name]) {
@@ -876,7 +876,17 @@ console.log(sons);
 	Number.method("int", function() {
 		return Math[this < 0 ? "ceil" : "floor"](this);
 	});
-	
+
+	Array.method("contain", function(ctx) {
+		var i = this.length;
+		while (i--) {
+			if (this[i] === ctx) {
+				return true;
+			}
+		}
+		return false;
+	});
+
 	Oct.sort = {
 		asc: function(a, b) {
 			return a - b;
