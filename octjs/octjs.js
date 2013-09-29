@@ -91,7 +91,7 @@
 			}
 
 		}
-
+console.log(this.elements);
 		// be careful!! here return "this",not "this.elememts", so do all the function.
 		return this;
 	};
@@ -100,10 +100,14 @@
 	Octobj.prototype = {
 
 		each: function(fn) {
+			/*
 			for (var c in this.elements) {
-
-				// use "this.elements[]" to raplace "this" in the "fn",so it doesn't have to use "this.elements" to call the "fn".
 				fn.call(this, this.elements[c]);
+			}*/
+				// use "this.elements[]" to raplace "this" in the "fn",so it doesn't have to use "this.elements" to call the "fn".
+			var i = this.elements.length;
+			while (i--) {
+				fn.call(this, this.elements[i]);
 			}
 
 			// here, "this" is the "Octobj" object,so do all the function.
@@ -234,18 +238,19 @@
 		setCss: function(property_list) {
 
 			this.each(function(eles) {
-
+console.dir(this);
+console.log(eles);
 				// "property_list" is a hash table.
 				// "name" stores the index of "property_list".
 				for (var name in property_list) {
 
 					// Deal with the situation like "background-color", turn into "backgroundColor".
 					var new_name = name;
-					if (name.match("-")) {
+/*					if (name.match("-")) {
 						var p = name.match("-").index + 1;
 						var c = name.charAt(p).toUpperCase();
 						new_name = name.replace(/-\w/, c);
-					}
+					}*/
 					eles.style[new_name] = property_list[name];
 				}
 			});
@@ -272,7 +277,7 @@
 							var c = name.charAt(p).toUpperCase();
 							new_name = name.replace(/-\w/, c);
 						}						
-						property_val.push(eles.currentStyle[new_name]);	
+						property_val.push(eles.currentStyle[new_name]);
 					}
 				});
 
@@ -309,9 +314,9 @@
 
 		width: function() {
 			if (arguments.length === 0) {
-				return this.getCss("width");
+				return this.getCss("s");
 			} else if (arguments.length === 1) {
-				this.setCss({width: arguments[1]});
+				this.setCss({"width": arguments[1]});
 				return this;
 			}
 
@@ -329,10 +334,6 @@
 					eles.style.filter = "alpha(opacity=" + level * 100 + ")";
 				});
 			}
-		},
-
-		a: function() {
-			alert("message");
 		},
 
 		parent: function() {

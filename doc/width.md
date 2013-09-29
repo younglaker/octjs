@@ -16,4 +16,4 @@ Get or set width.
 
 2.Set the width as "50px";
 
-	O("").width("50px")  => self
+	O("#buddy").width("50px")  => self
