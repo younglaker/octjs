@@ -27,7 +27,7 @@
 	<div id="test3" class="hi">sss</div>
 	<div id="test4" class="hi">sss <b>444</b> <span id="child">555 <span>666</span> </span> </div>
 
-	<div id="box">
+	<div id="box" class="qq">
 		<p>00
 			<span>10</span>
 			<b>11</b>
@@ -57,13 +57,16 @@
 	<script type="text/javascript">
 		var b = document.getElementById("box");
 
-		O("#uu").son(".kk").setCss({"color": "#f00"});
-
-		var d =document.getElementById("test");
+		// O("#box").add(".p");
+		// console.dir(O("#box"));
+		O("&p").setCss({"color":"#f00"});
 
 		// O("#box").setCss({marginTop: "200px", backgroundColor: "#f00"});
 		// console.log(O("#box").getCss("left"));
+		
+						// console.log(O("&p").elements[0].classList);
 
+				
 	</script>
 </body>
 </html>

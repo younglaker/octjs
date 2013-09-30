@@ -46,10 +46,10 @@
 		}
 
 		// "querySelector" for samrt browser
-		if (document.querySelector) {
+/*		if (document.querySelector) {
 			this.elements.push(document.querySelector(selector));
 		}
-		else {
+		else {*/
 			// use lowercase to judge,and delete the space initio,then slpite by one or more space.
 			selector = selector.replace(/^\s+/, "").split(/\s+/);
 
@@ -57,7 +57,7 @@
 			args = root_id.getElementsByTagName(tag);
 			type = selector[0].charAt(0);
 			eles = selector[0].slice(1);
-
+console.log(args);
 			if (type === ".") {
 				for (var i in args) {
 					if(args[i].className) {
@@ -89,6 +89,16 @@
 			else if (type === "&") {
 				for (var i in args) {
 
+					// You can "console.log(args[i]);" to see the last one is "length" which has noe "tagName"
+					if (typeof i !=="length") {
+						continue;
+					}
+
+					//  ignore <style> <script> <noscript> and so on
+					if (args[i].tagName.match(/(?style)(?script)(?noscript)/)) {
+						continue;
+					}
+
 					// "args[i].tagName" in browswer recognize uppercase, so base on coding habbit, use lowercase to juge.
 					if (args[i].tagName.toLowerCase() === eles.toLowerCase()) {
 						this.elements.push(args[i]);
@@ -96,7 +106,7 @@
 				}
 
 			}
-		}	
+		// }
 
 		// be careful!! here return "this",not "this.elememts", so do all the function.
 		return this;
@@ -134,17 +144,31 @@
 	  	var list = str.split(/\,\s*/);
 	  	for (var i in list ) {
 
+	  		// I have add some extend function for Array like "contains", here is to stop execute when funtion appear.
+				if (typeof list[i] === "function") {
+					return this;
+				}
+
 	  		// type: id("#"), class(".") or tag("&").
 	  		// name: the name of id or class or tag.
 				type = list[i].charAt(0);
 				name = list[i].slice(1);
 
 				if (type === ".") {
-					this.each(function(eles) {
+					// for smart browser
+					if (document.classList) {
+						console.log("message");
+						this.each(function(eles) {
+							eles.classList.add(name);
+						});	
+					}
+/*					else {
+						this.each(function(eles) {
 
-						// If it doesnt have className before, then add "name" directly. Else id has className before, then add a spcace and "name" .
-						eles.className = eles.className + (eles.className == "" ? "" : " ") + name;
-					});
+							// If it doesnt have className before, then add "name" directly. Else id has className before, then add a spcace and "name" .
+							eles.className = eles.className + (eles.className == "" ? "" : " ") + name;
+						});
+					}*/
 				}
 
 				else if (type === "#") {
