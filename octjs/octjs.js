@@ -146,7 +146,7 @@
 	  	var list = str.split(/\,\s*/);
 	  	for (var i in list ) {
 
-	  		// I have add some extend function for Array like "contains", here is to stop execute when funtion appear.
+				// I have add some extend function for Array like "contains", here is to stop execute when funtion appear.
 				if (typeof list[i] === "function") {
 					return this;
 				}
@@ -184,15 +184,28 @@
 	  remove: function(str) {
 	  	var list = str.split(/\,\s*/);
 	  	for (var i in list ) {
+
+				// I have add some extend function for Array like "contains", here is to stop execute when funtion appear.
+				if (typeof list[i] === "function") {
+					return this;
+				}
+
 				type = list[i].charAt(0);
 				name = list[i].slice(1);
 
 				if (type === ".") {
-					this.each(function(eles) {
+					if (document.documentElement.classList) {
+						this.each(function(eles) {
+							eles.classList.remove(name);
+						});	
+					}
+					else {
+						this.each(function(eles) {
 
-						// There maybe a space before the name.
-						eles.className = eles.className.replace(new RegExp("(^|\\s+)" + name), "");
-					});
+							// There maybe a space before the name.
+							eles.className = eles.className.replace(new RegExp("(^|\\s+)" + name), "");
+						});
+					}
 				}
 
 				else if (type === "#") {
@@ -224,16 +237,31 @@
 	  	var list = str.split(/\,\s*/);
 	  	var ele_arr = [];
 	  	for (var i in list ) {
+
+				// I have add some extend function for Array like "contains", here is to stop execute when funtion appear.
+				if (typeof list[i] === "function") {
+					return this;
+				}
+
 				type = list[i].charAt(0);
 				name = list[i].slice(1);
 
 
 				if (type === ".") {
-					this.each(function(eles) {
-						if (eles.className.match(name)) {
-							ele_arr.push(eles);
-						}
-					});
+					if (document.documentElement.classList.contains) {
+						this.each(function(eles) {
+							if(eles.classList.contains("qq")) {
+								ele_arr.push(eles);
+							}
+						});	
+					}
+					else {
+						this.each(function(eles) {
+							if (eles.className.match(name)) {
+								ele_arr.push(eles);
+							}
+						});
+					}
 				}
 
 				else if (type === "#") {
