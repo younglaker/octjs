@@ -158,19 +158,18 @@
 
 				if (type === ".") {
 					// for smart browser
-					if (document.classList) {
-						console.log("message");
+					if (document.documentElement.classList) {
 						this.each(function(eles) {
 							eles.classList.add(name);
 						});	
 					}
-/*					else {
+					else {
 						this.each(function(eles) {
 
 							// If it doesnt have className before, then add "name" directly. Else id has className before, then add a spcace and "name" .
 							eles.className = eles.className + (eles.className == "" ? "" : " ") + name;
 						});
-					}*/
+					}
 				}
 
 				else if (type === "#") {
