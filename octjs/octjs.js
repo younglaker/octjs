@@ -46,10 +46,17 @@
 		}
 
 		// "querySelector" for samrt browser
-/*		if (document.querySelector) {
-			this.elements.push(document.querySelector(selector));
+		if (document.querySelectorAll) {
+			// "replace" is for tag
+			var node_list = document.querySelectorAll(selector.replace("&", ""))
+			for (var i in node_list) {
+				// You can "console.log(node_list[i]);" to see, there are some function or non-tag elements
+				if (node_list[i].tagName !== undefined) {
+					this.elements.push(node_list[i]);
+				}
+			}
 		}
-		else {*/
+		else {
 			// use lowercase to judge,and delete the space initio,then slpite by one or more space.
 			selector = selector.replace(/^\s+/, "").split(/\s+/);
 
@@ -57,7 +64,7 @@
 			args = root_id.getElementsByTagName(tag);
 			type = selector[0].charAt(0);
 			eles = selector[0].slice(1);
-console.log(args);
+
 			if (type === ".") {
 				for (var i in args) {
 					if(args[i].className) {
@@ -88,25 +95,20 @@ console.log(args);
 
 			else if (type === "&") {
 				for (var i in args) {
-
 					// You can "console.log(args[i]);" to see the last one is "length" which has noe "tagName"
-					if (typeof i !=="length") {
-						continue;
+					if (i !== "length" && typeof args[i] !== "function") {
+
+						// "args[i].tagName" in browswer recognize uppercase, so base on coding habbit, use lowercase to juge.
+						if (args[i].tagName.toLowerCase() === eles.toLowerCase()) {
+							this.elements.push(args[i]);
+						}
 					}
 
-					//  ignore <style> <script> <noscript> and so on
-					if (args[i].tagName.match(/(?style)(?script)(?noscript)/)) {
-						continue;
-					}
 
-					// "args[i].tagName" in browswer recognize uppercase, so base on coding habbit, use lowercase to juge.
-					if (args[i].tagName.toLowerCase() === eles.toLowerCase()) {
-						this.elements.push(args[i]);
-					}
 				}
 
 			}
-		// }
+		}
 
 		// be careful!! here return "this",not "this.elememts", so do all the function.
 		return this;
