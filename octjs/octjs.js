@@ -45,53 +45,59 @@
 			tag = tag.slice(1);
 		}
 
-		// use lowercase to judge,and delete the space initio,then slpite by one or more space.
-		selector = selector.replace(/^\s+/, "").split(/\s+/);
+		// "querySelector" for samrt browser
+		if (document.querySelector) {
+			this.elements.push(document.querySelector(selector));
+		}
+		else {
+			// use lowercase to judge,and delete the space initio,then slpite by one or more space.
+			selector = selector.replace(/^\s+/, "").split(/\s+/);
 
-		// if dont point out the "root_id" and "tag", "args" is all the tags in document
-		args = root_id.getElementsByTagName(tag);
-		type = selector[0].charAt(0);
-		eles = selector[0].slice(1);
+			// if dont point out the "root_id" and "tag", "args" is all the tags in document
+			args = root_id.getElementsByTagName(tag);
+			type = selector[0].charAt(0);
+			eles = selector[0].slice(1);
 
-		if (type === ".") {
-			for (var i in args) {
-				if(args[i].className) {
+			if (type === ".") {
+				for (var i in args) {
+					if(args[i].className) {
 
-					// className maybe have more than one class, so split it by spaces
-					var r = args[i].className.split(/\s+/);
-					for (var j in r) {
-						if (r[j] === eles) {
-							this.elements.push(args[i]);
+						// className maybe have more than one class, so split it by spaces
+						var r = args[i].className.split(/\s+/);
+						for (var j in r) {
+							if (r[j] === eles) {
+								this.elements.push(args[i]);
+							}
 						}
 					}
 				}
 			}
-		}
 
-		else if (type === "#") {
-			for (var i in args) {
-				if(args[i].id) {
-					var r = args[i].id.split(/\s+/);
-					for (var j in r) {
-						if (r[j] === eles) {
-							this.elements.push(args[i]);
+			else if (type === "#") {
+				for (var i in args) {
+					if(args[i].id) {
+						var r = args[i].id.split(/\s+/);
+						for (var j in r) {
+							if (r[j] === eles) {
+								this.elements.push(args[i]);
+							}
 						}
 					}
 				}
 			}
-		}
 
-		else if (type === "&") {
-			for (var i in args) {
+			else if (type === "&") {
+				for (var i in args) {
 
-				// "args[i].tagName" in browswer recognize uppercase, so base on coding habbit, use lowercase to juge.
-				if (args[i].tagName.toLowerCase() === eles.toLowerCase()) {
-					this.elements.push(args[i]);
+					// "args[i].tagName" in browswer recognize uppercase, so base on coding habbit, use lowercase to juge.
+					if (args[i].tagName.toLowerCase() === eles.toLowerCase()) {
+						this.elements.push(args[i]);
+					}
 				}
-			}
 
-		}
-console.log(this.elements);
+			}
+		}	
+
 		// be careful!! here return "this",not "this.elememts", so do all the function.
 		return this;
 	};
@@ -238,8 +244,7 @@ console.log(this.elements);
 		setCss: function(property_list) {
 
 			this.each(function(eles) {
-console.dir(this);
-console.log(eles);
+
 				// "property_list" is a hash table.
 				// "name" stores the index of "property_list".
 				for (var name in property_list) {
@@ -493,14 +498,14 @@ console.log(this.elements);
 				this.each(function(eles) {
 					curr = eles.firstElementChild;
 					sons.push(curr);
-console.dir(curr.parentNode);
+
 					while (curr.nextElementSibling) {
 						curr = curr.nextElementSibling;
 						sons.push(curr);
 					}
 				});
 			}
-console.log(sons);
+
 			this.elements = sons;
 			return this;
 		},

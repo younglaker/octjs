@@ -35,11 +35,11 @@
 <!-- 		<span>01
 			<a href="">12</a>
 		</span> -->
-		<div id="uu" class="kk">02
-			<p>13
+		<div id="uu" >02
+			<p class="kk">13
 				<span>20</span>
 			</p>
-			<p>14
+			<p class="kk">14
 				<span>21</span>
 				<label for="">22</label>
 			</p>
@@ -55,44 +55,14 @@
 	<script type="text/javascript" src="reference/jquery-1.10.1.js"></script>
 	<script type="text/javascript" src="octjs/octjs.js"></script>
 	<script type="text/javascript">
-		// var a = "aa nn mm";
-		// console.log(a.charAt(2));
-
 		var b = document.getElementById("box");
-		// console.dir(b);
-		// var c = $("#box").children("p").css({"color": "#f00"});
-		// console.log(c);
 
-		// O("#box").children("&span", 1, 1).html("lalaaaaaaaaaaaaaaaaaaaaaaa");
-		O("#box").son(".kk").setCss({"color": "#f00"});
+		O("#uu").son(".kk").setCss({"color": "#f00"});
 
-		// O("#test").setCss({"color": "#00f"});
-		// console.log(O("#box").son());
- 
-		/*	O(".hi").addEvent("click", function(){
-			alert("hi");
-		})
-		.setCss({
-			width: "150px",
-			height: "100px"
-		});*/
-
-		// console.log(	O("#test2").height());
 		var d =document.getElementById("test");
-		// d.style.filter = "alpha(opacity=40)" ;
-		// console.dir(d);
-		// console.dir(d.style);
 
-
-
-		/*td = document.createElement("span");
-		td.textContent = "eeeeeeeeeeeeeeeeeeeeeeee";
-		d.appendChild(td);*/
-
-		/*O("#test2").add("#33").setCss({color: "#f0f"});
-		console.log(O("#test2"));*/
 		// O("#box").setCss({marginTop: "200px", backgroundColor: "#f00"});
-		console.log(O("#box").getCss("left"));
+		// console.log(O("#box").getCss("left"));
 
 	</script>
 </body>
