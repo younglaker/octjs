@@ -27,4 +27,7 @@ Set cookies.
 
 2. Set more cookies and keep them for 7 days.
 
-	Oct.cookie.set({item:"id5", value:"5", expires: 7}, {item:"id6", value:"66", expires: 7});
+	Oct.cookie.set(
+		{item: "id5", value: "5", expires: 7},
+		{item: "id6", value: "66", expires: 7}
+	);
