@@ -77,7 +77,7 @@
 	<script type="text/javascript">
 		var b = document.getElementById("box");
 
-		console.dir(O("#box").has(".qq"));
+		// console.dir(O("#box").has(".qq"));
 
 		// O("#box").setCss({marginTop: "200px", backgroundColor: "#f00"});
 		// console.log(O("#box").getCss("left"));
@@ -86,7 +86,10 @@
 
 		
 		// Oct.localStorage.remove();
-				
+				Oct.x({"method": "POST", "datatype": "string", "url": "http://act.stuzone.com/index.php/people/moreReEvents", "senddata": {
+					theid: "523eeee6c6527",
+					page: 1
+				}});
 	</script>
 </body>
 </html>

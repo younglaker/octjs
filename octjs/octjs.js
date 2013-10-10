@@ -11,7 +11,7 @@
 
 	// Create a global window object "window.O"
 	window.O = Oct = function(selector, root_id, tag) {
-	    return new Octobj(selector, root_id, tag);
+		return new Octobj(selector, root_id, tag);
 	};
 
 	Oct.version = "1.0";
@@ -103,8 +103,6 @@
 							this.elements.push(args[i]);
 						}
 					}
-
-
 				}
 
 			}
@@ -935,7 +933,7 @@ console.log(this.elements);
 	Number.method("int", function() {
 		return Math[this < 0 ? "ceil" : "floor"](this);
 	});
-
+/*
 	Array.method("contain", function(ctx) {
 		var i = this.length;
 		while (i--) {
@@ -944,7 +942,7 @@ console.log(this.elements);
 			}
 		}
 		return false;
-	});
+	});*/
 
 	Oct.sort = {
 		asc: function(a, b) {
@@ -1017,7 +1015,6 @@ console.log(this.elements);
 		}
 	}
 
-
 	Oct.rmArrayFn = function(arr) {
 		for (var i = arr.length; i > 0; i--) {
 			if (typeof arr[i] === "function") {
@@ -1027,5 +1024,94 @@ console.log(this.elements);
 		return arr;
 	}
 
+	Oct.ajax = function(ajax_data) {
+		var type = {
+			xml: "application/xml, text/xml",
+			html: "text/html",
+			script: "text/javascript, application/javascript",
+			json: "application/json, text/javascript",
+			text: "text/plain",
+			_default: "*/*"
+		};
+		var xhr_obj = new jxhr;
+		
+		ajax_data.method = ajax_data.method.toUpperCase() || "GET";
+		ajax_data.datatype = ajax_data.datatype || "json";
+		ajax_data.asyn = ajax_data.asyn || true;
+
+		if (xhr_obj) {
+			xhr_obj.open(ajax_data.method, ajax_data.url, ajax_data.asyn);
+			xhr_obj.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr_obj.setRequestHeader("Accept", ajax_data.datatype && type[ajax_data.datatype] ? type[ajax_data.datatype] + ", */*" : type._default);
+			xhr_obj.onreadystatechange = function() {
+				if (xhr_obj.readyState == 1) {
+					ajax_data.laoding(xhr_obj.response);
+				} else {
+					if (xhr_obj.readyState == 2) {
+						ajax_data.laoded(xhr_obj.response);
+					} else {
+						if (xhr_obj.readyState == 3) {
+							ajax_data.interactive(xhr_obj.response);
+						} else {
+							if (xhr_obj.readyState == 4) {
+								if (xhr_obj.status == 200) {
+									Oct.dataform(xhr_obj, ajax_data.datatype);
+									ajax_data.success(xhr_obj.response);
+									return xhr_obj;
+								} else {
+								}
+							}
+						}
+					}
+				}
+			};
+			try {
+				xhr_obj.send(ajax_data.method === "POST" ? Oct.serialize(ajax_data.senddata) : null)
+			} catch (j) {
+				ajax_data.fail(xhr_obj.response);
+			}
+		}
+	};
+
+	Oct.dataform = function(g, e) {
+		var d = g.getResponseHeader("content-type") || "",
+				c = e === "xml" || !e && d.indexOf("xml") >= 0,
+				f = c ? g.responseXML : g.responseText;
+		if (typeof f === "string") {
+			if (e === "json" || !e && d.indexOf("json") >= 0) {
+				// f = Oct.trim(f);
+				return window.JSON && window.JSON.parse ? window.JSON.parse(f) : (new Function("return " + f))()
+			}
+		}
+		return f
+	};
+
+	Oct.serialize = function(data) {
+		var key = [], val = [], pair = [], str = "";
+		for (var name in data) {
+			key.push(encodeURIComponent(name));
+			val.push(encodeURIComponent(data[name]));
+		}
+		for (var i = 0; i < key.length; i++) {
+			pair[i] = key[i] + "=" + val[i];
+		}
+		return str = pair.join("&");
+	}
+
+	function Jxhr() {
+		if (window.XMLHttpRequest) {
+			return new XMLHttpRequest();
+		} else { // for IE5/6
+			return new ActiveXObject("Microsoft.XMLHTTP");
+		}
+	}
+
+	// var jxhr = new Jxhr;
+	window.jxhr = jxhr = function() {
+		return new Jxhr;
+	}
+	jxhr.done = function(data) {
+		console.log(data);
+	}
 
 })();
