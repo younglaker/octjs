@@ -2,7 +2,7 @@
 
 ### Description
 
-Return the current browser name and version. Mainly chrome, firefox, ac
+Return the current browser name and version. Mainly chrome, firefox, etc.
 
 ### Syntax
 	Oct.browswer()[.name/version];  => value

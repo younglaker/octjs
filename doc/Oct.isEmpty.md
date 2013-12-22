@@ -2,7 +2,7 @@
 
 ### Description
 
-Check a string whether is empty.
+Check whether a string is empty.
 
 ### Syntax
 	Oct.isEmpty(str);  => boolean

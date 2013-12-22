@@ -2,7 +2,7 @@
 
 ### Description
 
-Create a Oct collection object by performing a CSS selector, wrapping DOM nodes, or creating elements from an HTML string.
+Create an Oct collection object by performing a CSS selector, wrapping DOM nodes, or creating elements from an HTML string.
 
 ### Syntax
 	O("selector[, root_id, tag]")  => collection

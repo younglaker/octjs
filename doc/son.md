@@ -2,12 +2,12 @@
 
 ### Description
 
-Get the first level of children nodes.
+Get the first level of child nodes.
 
 ### Syntax
 	O("").son([selector])  => self
 
-- selector: The specific elements you want. The id ueses prefix "#", class ueses ".", and tag ueses "&". If no specific selector, it will get all the first level of children nodes.
+- selector: The specific elements you want. The id ueses prefix "#", class ueses ".", and tag ueses "&". If no specific selector, it will get all the first level of child nodes.
 
 ### Demo
 

@@ -2,7 +2,7 @@
 
 ### Description
 
-Create random number in specific range.
+Generate random number in specific range.
 
 ### Syntax
 	Oct.randomNum = function(start, stop, type)  => number

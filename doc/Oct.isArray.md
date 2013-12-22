@@ -2,7 +2,7 @@
 
 ### Description
 
-Judge a element whether is a array.
+Check whether an element is an array.
 
 ### Syntax
 	Oct.isArray(value)  => bool
