@@ -2,7 +2,7 @@
 
 ### Description
 
-remove id, class or tag in a object.
+Remove id, class or tag in an object.
 
 ### Syntax
 	O("").remove("#/./&name1[, #/./&name2 ... ]")  => self

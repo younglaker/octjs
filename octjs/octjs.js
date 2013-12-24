@@ -931,7 +931,7 @@ console.log(this.elements);
 	});
 
 	Number.method("int", function() {
-		return Math[this < 0 ? "ceil" : "floor"](this);
+		return ~~this 
 	});
 /*
 	Array.method("contain", function(ctx) {

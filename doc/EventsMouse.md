@@ -1,4 +1,4 @@
-## Mouse Events: click, ,  and so on
+## Mouse Events: click, hover and so on
 
 - click(function() {})
 
