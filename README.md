@@ -23,6 +23,7 @@ Overview
 - `Oct.cookie.set()` Set cookies.
 - `Oct.extend()` Extend method of Oct object.
 - `Oct.global.namespace()` Creat namespace.
+- `Oct.hexToRgb()` Exchange HEX color to RGB color.
 - `Oct.ieVerion()` Test ie version.
 - `Oct.inheFn()` Inherit construct function. It should write inside the son class.
 - `Oct.inhePro()` Inherit prototype. It should write before the son class.
@@ -35,6 +36,7 @@ Overview
 - `O() or Oct()` Create an Oct collection object by performing a CSS selector, wrapping DOM nodes, or creating elements from an HTML string.
 - `Oct.mergeSort()` Sort the Array through merge algorithm.
 - `Oct.randomNum()` Generate random number in specific range.
+- `Oct.rgbToHexr()` Exchange RGB color to HEX color.
 - `Oct.sort.fn()` Some sort method for javascript sort() function.
 - `Oct.stopBubble()` Cancle event bubbling.
 - `Oct.tag()` Create tag.

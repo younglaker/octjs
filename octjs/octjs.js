@@ -709,7 +709,6 @@ console.log(this.elements);
 	Oct.global = {};
 	Oct.global.namespace = function(str) {
 	  var arr = str.split("."), o = Oct.global;
-	  console.log(arr);
 	  for (var i = (arr[0] === "global") ? 1 : 0; i < arr.length; i++) {
 	  	o[arr[i]] = o[arr[i]] || {};
 	  	o = o[arr[i]];
@@ -807,7 +806,6 @@ console.log(this.elements);
 		remove: function() {
 			if (document.cookie !== "") {
 				var cookies_arr = document.cookie.split(/=|;\s?/);
-				console.log(arguments.length);
 				if (arguments.length === 0) {
 					for (var j = 0; j < cookies_arr.length; j = j + 2) {
 						Oct.cookie.set({item: cookies_arr[j], value: cookies_arr[j+1], expires: -1});
@@ -1007,7 +1005,6 @@ console.log(this.elements);
 		remove: function() {
 			if (window.localStorage) {
 				if (arguments[0] === undefined) {
-					console.log(localStorage);
 					for (i in localStorage) {
 						localStorage.removeItem(i);
 					}
@@ -1130,7 +1127,6 @@ console.log(this.elements);
 			// 'color[i]' is a string, need to be exchanged to number.
 			// add 0 to the front and slice the last two one in order to avoid single number.eg: 0A instead of A
 			hex += ("0" + Number(color[i]).toString(16)).slice(-2);
-			console.log(hex);
 		}
 		return hex;
 	}
