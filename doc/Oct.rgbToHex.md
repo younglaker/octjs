@@ -10,7 +10,7 @@ Exchange RGB color to HEX color.
 
 ### Demo
 
-1.Get the current browser information.
+1.
 
 	Oct.rgbToHex("rgb(145,25,145)"); // #911991
 
