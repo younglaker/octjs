@@ -1120,4 +1120,32 @@ console.log(this.elements);
 		console.log(data);
 	}
 
+	Oct.rgbToHex = function(rgb) {
+		// rgb's form is rgb(x, y, z) 
+		var color = rgb.match(/\d+/g); // push x,y,z to array color
+		var hex = "#";
+
+		for (var i = 0; i < 3; i++) {
+			// 'Number.toString(16)' can exchange decimalism to hexadecimal.
+			// 'color[i]' is a string, need to be exchanged to number.
+			// add 0 to the front and slice the last two one in order to avoid single number.eg: 0A instead of A
+			hex += ("0" + Number(color[i]).toString(16)).slice(-2);
+			console.log(hex);
+		}
+		return hex;
+	}
+
+	Oct.hexToRgb = function(hex) {
+		// hex's form is #XXYYZZ
+		var color = [], rgb = [];
+
+		hex = hex.replace(/#/,"");
+
+		for (var i = 0; i < 3; i++) {
+			color[i] = "0x" + hex.substr(i+2, 2);
+			rgb.push(parseInt(Number(color[i]))); 
+		}
+		return "rgb(" + rgb.join(",") + ")";
+	}
+
 })();
