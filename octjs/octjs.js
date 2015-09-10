@@ -45,6 +45,12 @@
 			tag = tag.slice(1);
 		}
 
+		// deal with "this". "this" usually means a actual tag like" <div class=​"colors">​hello</div>​"
+		if (typeof(selector) == "object") {
+			this.elements.push(selector);
+			return;
+		}
+
 		// "querySelector" for samrt browser
 		if (document.querySelectorAll) {
 			// "replace" is for tag
