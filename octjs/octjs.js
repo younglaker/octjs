@@ -419,7 +419,6 @@
 			selector = selector.replace(/^\s+/, "").split(/\s+/);
 			type = selector[0].charAt(0);
 			eles = selector[0].slice(1);
-
 			if (type === ".") {
 				for (var i = 0; i < tags_array.length; i++) {
 					if (tags_array[i].className == eles) {
@@ -427,16 +426,13 @@
 					}
 				}
 			}
-
 			if (type === "#") {
 				this.elements.push(document.getElementById(eles));
 			}
-
 			if (type === "&") {
 				for (var i = 0; i <= level_stop; i++) {
 					tem_tags = tags_array;
 				}
-
 			}*/
 
 /*			var tem_elements = this.elements[0].children;
@@ -460,30 +456,24 @@
 					curr_ele = curr_ele.nextElementSibling;
 					console.log("1");
 				}
-
 				curr_ele = curr_ele.firstElementChild;
-
 console.log(curr_ele.tagName);
 				if (i >= level_start && curr_ele.tagName == selector) {
 					this.elements.push(curr_ele);
 					console.log("2");
 				}
-
 				while (curr_ele.nextElementSibling) {
 					curr_ele = curr_ele.nextElementSibling;
 					// console.log(curr_ele);
-
 					if (i >= level_start && curr_ele == selector) {
 						console.log("4");
 						this.elements.push(curr_ele);
 					}
 				}
-
 				if (i === 0) {
 					console.log("5");
 					curr_ele = curr_ele.parentElement.firstElementChild;
 				}
-
 				while (i > 0 && curr_ele.parentElement.nextElementSibling) {
 					console.log("6");
 					curr_ele = curr_ele.parentElement.nextElementSibling;
@@ -625,7 +615,7 @@ console.log(this.elements);
 
 /**************************** Oct.Fn ***********************************/
 	Oct.ieVerion = function() {
-	  var ua = navigator.userAgent;
+        var ua = navigator.userAgent;
 		return /msie/.test(ua) && parseFloat((ua.match(/.*(?:rv|ie)[\/: ](.+?)([ \);]|$)/) || [])[1]) || false;
 	}
 
@@ -665,17 +655,17 @@ console.log(this.elements);
 
 	Oct.stopBubble = function(e) {
 
-	  e = window.event || e;
+        e = window.event || e;
 
-		// IE
-	  if(document.all) {
-	  	e.cancelBubble = true;
-	  }
+        // IE
+        if(document.all) {
+            e.cancelBubble = true;
+        }
 
-		// not IE
-	  else {
-	  	e.stopPropagation();
-	  }
+        // not IE
+        else {
+            e.stopPropagation();
+        }
 
 	};
 
@@ -708,11 +698,12 @@ console.log(this.elements);
 
 	Oct.global = {};
 	Oct.global.namespace = function(str) {
-	  var arr = str.split("."), o = Oct.global;
-	  for (var i = (arr[0] === "global") ? 1 : 0; i < arr.length; i++) {
-	  	o[arr[i]] = o[arr[i]] || {};
-	  	o = o[arr[i]];
-	  }
+        var arr = str.split("."), o = Oct.global;
+        console.log(arr);
+        for (var i = (arr[0] === "global") ? 1 : 0; i < arr.length; i++) {
+            o[arr[i]] = o[arr[i]] || {};
+            o = o[arr[i]];
+        }
 	}
 
 	// "trim()" is for lower than ie8
@@ -806,6 +797,7 @@ console.log(this.elements);
 		remove: function() {
 			if (document.cookie !== "") {
 				var cookies_arr = document.cookie.split(/=|;\s?/);
+				console.log(arguments.length);
 				if (arguments.length === 0) {
 					for (var j = 0; j < cookies_arr.length; j = j + 2) {
 						Oct.cookie.set({item: cookies_arr[j], value: cookies_arr[j+1], expires: -1});
@@ -1005,6 +997,7 @@ console.log(this.elements);
 		remove: function() {
 			if (window.localStorage) {
 				if (arguments[0] === undefined) {
+					console.log(localStorage);
 					for (i in localStorage) {
 						localStorage.removeItem(i);
 					}
@@ -1132,10 +1125,18 @@ console.log(this.elements);
 	}
 
 	Oct.hexToRgb = function(hex) {
-		// hex's form is #XXYYZZ
+		// hex's form is #axbycz or #abc
 		var color = [], rgb = [];
-
+        
 		hex = hex.replace(/#/,"");
+        
+        if (hex.length == 3) { // deal "#abc" to "#aabbcc"
+            var tmp = [];
+            for (var i = 0; i < 3; i++) {
+                tmp.push(hex.charAt(i) + hex.charAt(i));
+            }
+            hex = tmp.join("");
+        }
 
 		for (var i = 0; i < 3; i++) {
 			color[i] = "0x" + hex.substr(i+2, 2);
