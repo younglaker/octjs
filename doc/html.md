@@ -2,9 +2,10 @@
 
 ### Description
 
-Insert content.
+Read and insert content.
 
 ### Syntax
+	O("").html()  => html
 	O("").html(content)  => self
 
 - content: <String>. words or tags.
@@ -18,3 +19,7 @@ Insert content.
 2.Insert a sentence in #buddy.
 
 	O("#buddy").html("Hello world~");
+
+3.Read #buddy's html.
+
+	O("#buddy").html("");

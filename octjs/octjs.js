@@ -137,11 +137,15 @@
 		},
 
 		html: function(text) {
-			this.each(function(eles) {
-				// Warning: dont use "this.elements", use "eles"
-				eles.innerHTML = text;
-			});
-	    return this;
+			if (arguments.length === 0) {
+				return this.elements[0].innerHTML;
+			} else if (arguments.length === 1) {
+				this.each(function(eles) {
+					// Warning: dont use "this.elements", use "eles"
+					eles.innerHTML = text;
+				});
+				return this;
+			}	    
 		},
 
 		add: function(str) {
@@ -165,7 +169,7 @@
 					if (document.documentElement.classList) {
 						this.each(function(eles) {
 							eles.classList.add(name);
-						});	
+						});
 					}
 					else {
 						this.each(function(eles) {
@@ -201,7 +205,7 @@
 					if (document.documentElement.classList) {
 						this.each(function(eles) {
 							eles.classList.remove(name);
-						});	
+						});
 					}
 					else {
 						this.each(function(eles) {
@@ -257,7 +261,7 @@
 							if(eles.classList.contains("qq")) {
 								ele_arr.push(eles);
 							}
-						});	
+						});
 					}
 					else {
 						this.each(function(eles) {
@@ -338,7 +342,7 @@
 							var p = name.match("-").index + 1;
 							var c = name.charAt(p).toUpperCase();
 							new_name = name.replace(/-\w/, c);
-						}						
+						}
 						property_val.push(eles.currentStyle[new_name]);
 					}
 				});
@@ -352,7 +356,7 @@
 							var p = name.match("-").index + 1;
 							var c = name.charAt(p).toUpperCase();
 							new_name = name.replace(/-\w/, c);
-						}							
+						}
 						property_val.push(window.getComputedStyle(eles, null).getPropertyValue(new_name));
 					}
 				});
@@ -366,7 +370,7 @@
 			if (arguments.length === 0) {
 
 				// Because "getCss" "setCss" is function of "Oct" object, so must use "this"(a Oct object) to call them, not "this.elements"
-				return this.getCss("height");			
+				return this.getCss("height");
 			} else if (arguments.length === 1) {
 				this.setCss({height: arguments[1]});
 				return this;
@@ -376,12 +380,11 @@
 
 		width: function() {
 			if (arguments.length === 0) {
-				return this.getCss("s");
+				return this.getCss("width").toString();
 			} else if (arguments.length === 1) {
 				this.setCss({"width": arguments[1]});
 				return this;
 			}
-
 		},
 
 		setOpacity: function(level) {
@@ -446,7 +449,7 @@
 			}
 			console.log(this.elements);
 */
-		/*	
+		/*
 			var curr_ele = this.elements[0];
 			selector = selector.slice(1);
 			console.log(selector);
@@ -519,7 +522,7 @@ console.log(this.elements);
 						if (curr.id.match(name)) {
 							sons.push(curr);
 						}
-					}	
+					}
 				});
 			}
 
@@ -536,12 +539,11 @@ console.log(this.elements);
 						if (name.toLowerCase() === curr.tagName.toLowerCase()) {
 							sons.push(curr);
 						}
-					}	
+					}
 				});
 			}
 
 			else if (type === "") {
-				console.log("message");
 				this.each(function(eles) {
 					curr = eles.firstElementChild;
 					sons.push(curr);
@@ -699,7 +701,6 @@ console.log(this.elements);
 	Oct.global = {};
 	Oct.global.namespace = function(str) {
         var arr = str.split("."), o = Oct.global;
-        console.log(arr);
         for (var i = (arr[0] === "global") ? 1 : 0; i < arr.length; i++) {
             o[arr[i]] = o[arr[i]] || {};
             o = o[arr[i]];
@@ -797,7 +798,6 @@ console.log(this.elements);
 		remove: function() {
 			if (document.cookie !== "") {
 				var cookies_arr = document.cookie.split(/=|;\s?/);
-				console.log(arguments.length);
 				if (arguments.length === 0) {
 					for (var j = 0; j < cookies_arr.length; j = j + 2) {
 						Oct.cookie.set({item: cookies_arr[j], value: cookies_arr[j+1], expires: -1});
@@ -927,7 +927,7 @@ console.log(this.elements);
 	});
 
 	Number.method("int", function() {
-		return ~~this 
+		return ~~this
 	});
 /*
 	Array.method("contain", function(ctx) {
@@ -997,7 +997,6 @@ console.log(this.elements);
 		remove: function() {
 			if (window.localStorage) {
 				if (arguments[0] === undefined) {
-					console.log(localStorage);
 					for (i in localStorage) {
 						localStorage.removeItem(i);
 					}
@@ -1030,7 +1029,7 @@ console.log(this.elements);
 			_default: "*/*"
 		};
 		var xhr_obj = new jxhr;
-		
+
 		ajax_data.method = ajax_data.method.toUpperCase() || "GET";
 		ajax_data.datatype = ajax_data.datatype || "json";
 		ajax_data.asyn = ajax_data.asyn || true;
@@ -1111,8 +1110,8 @@ console.log(this.elements);
 	}
 
 	Oct.rgbToHex = function(rgb) {
-		// rgb's form is rgb(x, y, z) 
-		var color = rgb.match(/\d+/g); // push x,y,z to array color
+		// rgb's form is rgb(x, y, z)
+		var color = rgb.toString().match(/\d+/g); // push x,y,z to array color
 		var hex = "#";
 
 		for (var i = 0; i < 3; i++) {
@@ -1127,9 +1126,9 @@ console.log(this.elements);
 	Oct.hexToRgb = function(hex) {
 		// hex's form is #axbycz or #abc
 		var color = [], rgb = [];
-        
+
 		hex = hex.replace(/#/,"");
-        
+
         if (hex.length == 3) { // deal "#abc" to "#aabbcc"
             var tmp = [];
             for (var i = 0; i < 3; i++) {
@@ -1140,7 +1139,7 @@ console.log(this.elements);
 
 		for (var i = 0; i < 3; i++) {
 			color[i] = "0x" + hex.substr(i+2, 2);
-			rgb.push(parseInt(Number(color[i]))); 
+			rgb.push(parseInt(Number(color[i])));
 		}
 		return "rgb(" + rgb.join(",") + ")";
 	}
