@@ -14,7 +14,14 @@ Set css property.
 
 1.Set some css property for #buddy
 
-	O("#buddy").setCss({top: "20px", backgroundColor: "#f00"});
-	O("#buddy").setCss({"left": "50px", "color": "#eee"});
+	O("#buddy").setCss({
+        top: "20px",
+        backgroundColor: "#f00"
+    });
+    
+	O("#buddy").setCss({
+        "left": "50px",
+        "color": "#eee"
+    });
 	// PS: the property can be wrap by double quotation marks or not.
 
