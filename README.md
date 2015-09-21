@@ -11,7 +11,7 @@ Overview
 - `Array.contain()` Test for value in Javascript Array.
 - `Mouse Events` `click`, `hover` and so on
 - `.getCss()`  Get the value of style properties for the  element.
-- `has()` Select the object which has the specifical id, class or tag.
+- `.has()` Select the object which has the specifical id, class or tag.
 - `.height()` Get or set height.
 - `.html()` Insert content.
 - `Number.int()` Get integer part of Number.
