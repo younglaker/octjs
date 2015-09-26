@@ -13,7 +13,7 @@ Overview
 - `.getCss()`  Get the value of style properties for the  element.
 - `.has()` Select the object which has the specifical id, class or tag.
 - `.height()` Get or set height.
-- `.html()` Insert content.
+- `.html()` Read and insert content.
 - `Number.int()` Get integer part of Number.
 - `Obj.method()` Extend method of basic types of objects.
 - `Oct.ajax()` Perform an asynchronous HTTP (Ajax) request.
@@ -48,3 +48,12 @@ Overview
 - `.son()` Get the first level of child nodes.
 - `String.lengthdb()` Count the double bytes words.
 - `.width()` Get or set width.
+
+
+## To do 
+
+- Function animation
+- Function document.ready
+- Homepage and documentes
+- Funtion children
+- Function parents
