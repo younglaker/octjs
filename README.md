@@ -1,17 +1,20 @@
-Prelude
--------
+#Prelude
 
 April 27, a day I will never forget. I know what I really want, and I will fight for it desperately. A small javascript, written to remember the day I grew up.
 
-Overview
---------
+# Usage 
+Include the oct.js file in your HTML.
+
+#Overview
 
 - `.addEvent()` Add event.
 - `.add()` Add id or class in a object.
 - `Array.contain()` Test for value in Javascript Array.
 - `Mouse Events` `click`, `hover` and so on
 - `.getCss()`  Get the value of style properties for the  element.
+- `.getAttr()`  Get the value of attribute properties for the  element.
 - `.has()` Select the object which has the specifical id, class or tag.
+- `.hasAttr()` Judge the element whether has the attribute property.
 - `.height()` Get or set height.
 - `.html()` Read and insert content.
 - `Number.int()` Get integer part of Number.
@@ -43,7 +46,9 @@ Overview
 - `Oct.trim()` Delete the space in the first and end of a string.
 - `.parent()` Get the first level of child nodes.
 - `.remove()` Remove id, class or tag in an object.
+- `.removeAttr()` Remove the attribute.
 - `.setCss()` Set css property.
+- `.setAttr()` Set attribute property.
 - `.setOpacity()` Set opacity.
 - `.son()` Get the first level of child nodes.
 - `String.lengthdb()` Count the double bytes words.

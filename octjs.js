@@ -366,6 +366,36 @@
 			return property_val;
 		},
 
+		setAttr: function(property_list) {
+
+			this.each(function(eles) {
+
+				// "property_list" is a hash table.
+				// "name" stores the index of "property_list".
+				for (var name in property_list) {
+                    eles.setAttribute( name, property_list[name]);
+				}
+			});
+
+			return this;
+		},
+
+		getAttr: function(property) {
+			return this.elements[0].getAttribute(property);
+		},
+
+        hasAttr: function(property) {
+            // return true or false
+			return this.elements[0].hasAttribute(property);
+		},
+
+		removeAttr: function(property) {
+			this.each(function(eles) {
+                eles.removeAttribute(property);
+			});
+			return this;
+		},
+
 		height: function() {
 			if (arguments.length === 0) {
 
