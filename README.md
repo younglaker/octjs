@@ -1,6 +1,6 @@
 #Prelude
 
-April 27, a day I will never forget. I know what I really want, and I will fight for it desperately. A small javascript, written to remember the day I grew up.
+April 27 2013, a day I will never forget. I know what I really want, and I will fight for it desperately. A small javascript, written to remember the day I grew up.
 
 # Usage 
 Include the oct.js file in your HTML.
@@ -62,3 +62,4 @@ Include the oct.js file in your HTML.
 - Homepage and documentes
 - Funtion children
 - Function parents
+- Expand on() by event bubble to bind event dynamically

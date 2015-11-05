@@ -7,8 +7,11 @@
 *	Date: 2013-05-27 to one day
 */
 
-(function() {
+// 立即执行的匿名函数
+// 开头的分号，意在防止与其他js文件合并压缩时，由于上一个文件没有用分号结尾而产生问题
+;(function(window) {
 
+	// 定义一个作为局部函数的Oct。有些库的做法是一开始就定义一个全局变量，而另一些的做法是先定义成局部变量，最后再赋值给一个全局变量。这里采用的是后者。
 	// Create a global window object "window.O"
 	window.O = Oct = function(selector, root_id, tag) {
 		return new Octobj(selector, root_id, tag);
@@ -16,9 +19,10 @@
 
 	Oct.version = "1.0";
 
-	//  selector: the elements you want.
-	//  root_id: the root's id of the elements'root you want.
-	//  tag: point out the specific tag of the selector. If none, it's document.
+	// Octobj类似JQ里的jQuery.init（函数也是对象，也可以添加属性和方法）
+	// selector: the elements you want.
+	// root_id: the root's id of the elements'root you want.
+	// tag: point out the specific tag of the selector. If none, it's document.
 	var Octobj = function(selector, root_id, tag) {
 
 		// args: the array stores the tags in "root_id".
@@ -119,6 +123,10 @@
 	};
 
 /**************************** Octobj.Fn ***********************************/
+	// https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures
+	// 如果不是因为某些特殊任务而需要闭包，在没有必要的情况下，在其它函数中创建函数是不明智的，因为闭包对脚本性能具有负面影响，包括处理速度和内存消耗。
+	// 例如，在创建新的对象或者类时，方法通常应该关联于对象的原型，而不是定义到对象的构造器中。原因是这将导致每次构造器被调用，方法都会被重新赋值一次（也就是说，为每一个对象的创建）
+
 	Octobj.prototype = {
 
 		each: function(fn) {
@@ -126,7 +134,7 @@
 			for (var c in this.elements) {
 				fn.call(this, this.elements[c]);
 			}*/
-				// use "this.elements[]" to raplace "this" in the "fn",so it doesn't have to use "this.elements" to call the "fn".
+			// use "this.elements[]" to raplace "this" in the "fn",so it doesn't have to use "this.elements" to call the "fn".
 			var i = this.elements.length;
 			while (i--) {
 				fn.call(this, this.elements[i]);
@@ -300,7 +308,7 @@
 			}
 
 			return this;
-	  },
+		},
 
 		setCss: function(property_list) {
 
@@ -649,7 +657,7 @@ console.log(this.elements);
 	Oct.ieVerion = function() {
         var ua = navigator.userAgent;
 		return /msie/.test(ua) && parseFloat((ua.match(/.*(?:rv|ie)[\/: ](.+?)([ \);]|$)/) || [])[1]) || false;
-	}
+	};
 
 	Oct.browswer = function() {
 		var ua        = navigator.userAgent,
@@ -683,7 +691,7 @@ console.log(this.elements);
 		}
 
 		return result;
-	}
+	};
 
 	Oct.stopBubble = function(e) {
 
@@ -721,12 +729,12 @@ console.log(this.elements);
 		}
 
 		return random_num;
-  };
+	};
 
 
 	var makeRandom = function(max) {
 		return Math.random() * max;
-	}
+	};
 
 	Oct.global = {};
 	Oct.global.namespace = function(str) {
@@ -735,7 +743,7 @@ console.log(this.elements);
             o[arr[i]] = o[arr[i]] || {};
             o = o[arr[i]];
         }
-	}
+	};
 
 	// "trim()" is for lower than ie8
 	Oct.trim = function(str) {
@@ -744,16 +752,16 @@ console.log(this.elements);
 		} else {
 			return str.replace(/^\s+|\s+$/g, "");
 		}
-	}
+	};
 
 	Oct.isEmpty = function(str) {
 		return /^\s*$/.test(str);
-	}
+	};
 
 	Oct.type = function(arg) {
 		// Avoid when typeof "null" value return "object"
 		return (arg === "null") ? "null" : (typeof arg);
-	}
+	};
 
 /*	Oct.extend = function(super_class, sub_class) {
 	  var Extend = function() {};
@@ -767,7 +775,7 @@ console.log(this.elements);
 
 	Oct.inhePro = function(super_class, sub_class) {
 		sub_class.prototype = super_class.prototype;
-	}
+	};
 
 	Oct.inheFn = function(super_class, ds, name) {
 		var args = [];
@@ -775,11 +783,11 @@ console.log(this.elements);
 			args.push(arguments[i]);
 		}
 		super_class.apply(ds, args);
-	}
+	};
 
 	Oct.isExist = function(arg) {
 		return typeof arg !== undefined;
-	}
+	};
 
 	Oct.cookie = {
 		set: function(options) {
@@ -844,11 +852,11 @@ console.log(this.elements);
 			}
 		}
 
-	}
+	};
 
 	Oct.isArray = function(value) {
 		return Object.prototype.toString.apply(value) === "[object Array]";
-	}
+	};
 
 	Oct.matrix = function(line, row, init) {
 		var a = [], mat = [];
@@ -867,7 +875,7 @@ console.log(this.elements);
 			}
 		}
 		return mat;
-	}
+	};
 
 	var merge = function(left, right, positive) {
 		var result = [];
@@ -879,7 +887,7 @@ console.log(this.elements);
 			}
 		}
 		return result.concat(left, right);
-	}
+	};
 
 	Oct.mergeSort = function(items, positive) {
 		// Cant use "positive = positive || true". Cuz if positive=false, the "||" will make positive true, and cant get false any way.
@@ -910,7 +918,7 @@ console.log(this.elements);
 			}
 		}
 		return result;
-	}
+	};
 
 	Oct = {
 		test: function() {
@@ -938,7 +946,7 @@ console.log(this.elements);
 			this.prototype[name] = fn;
 			return this;
 		}
-	}
+	};
 
 	String.method("lengthdb", function() {
 		var counts = 0, len = this.length;
@@ -1038,7 +1046,7 @@ console.log(this.elements);
 				}
 			}
 		}
-	}
+	};
 
 	Oct.rmArrayFn = function(arr) {
 		for (var i = arr.length; i > 0; i--) {
@@ -1047,7 +1055,7 @@ console.log(this.elements);
 			}
 		}
 		return arr;
-	}
+	};
 
 	Oct.ajax = function(ajax_data) {
 		var type = {
@@ -1121,7 +1129,7 @@ console.log(this.elements);
 			pair[i] = key[i] + "=" + val[i];
 		}
 		return str = pair.join("&");
-	}
+	};
 
 	function Jxhr() {
 		if (window.XMLHttpRequest) {
@@ -1129,15 +1137,16 @@ console.log(this.elements);
 		} else { // for IE5/6
 			return new ActiveXObject("Microsoft.XMLHTTP");
 		}
-	}
+	};
 
 	// var jxhr = new Jxhr;
 	window.jxhr = jxhr = function() {
 		return new Jxhr;
-	}
+	};
+
 	jxhr.done = function(data) {
 		console.log(data);
-	}
+	};
 
 	Oct.rgbToHex = function(rgb) {
 		// rgb's form is rgb(x, y, z)
@@ -1151,7 +1160,7 @@ console.log(this.elements);
 			hex += ("0" + Number(color[i]).toString(16)).slice(-2);
 		}
 		return hex;
-	}
+	};
 
 	Oct.hexToRgb = function(hex) {
 		// hex's form is #axbycz or #abc
@@ -1172,6 +1181,8 @@ console.log(this.elements);
 			rgb.push(parseInt(Number(color[i])));
 		}
 		return "rgb(" + rgb.join(",") + ")";
-	}
+	};
 
-})();
+})(window);
+//将全局对象window作为参数传入，则可以使之在匿名函数内部作为局部变量访问，提供访问速度。
+//最末尾的分号则是防止与下一个js文件发生合并冲突。
