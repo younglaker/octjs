@@ -609,10 +609,19 @@ console.log(this.elements);
 		},*/
 
 		addEvent: function(event_type, fn) {
-			addEvent = document.addEventListener ? this.each(function(eles) {
+			document.addEventListener ? this.each(function(eles) {
 				eles.addEventListener(event_type, fn, false);
 			}) : this.each(function(eles) {
 				eles.attachEvent("on" + event_type, fn);
+			});
+			return this;
+		},
+
+		removeEvent: function(event_type, fn) {
+			document.removeEventListener ? this.each(function(eles) {
+				eles.removeEventListener(event_type, fn, false);
+			}) : this.each(function(eles) {
+				eles.detachEvent("on" + event_type, fn);
 			});
 			return this;
 		},
