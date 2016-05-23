@@ -119,7 +119,7 @@
 		}
 
 		// be careful!! here return "this",not "this.elememts", so do all the function.
-		return this;
+		// return this;    这是构造函数， 实例化之后自动返回this对象，不需要再返回this对象了   
 	};
 
 /**************************** Octobj.Fn ***********************************/
