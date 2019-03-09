@@ -1,9 +1,9 @@
-#Prelude
-
-April 27 2013, a day I will never forget. I know what I really want, and I will fight for it desperately. A small javascript, written to remember the day I grew up.
-
 # Usage 
 Include the oct.js file in your HTML.
+
+# Documents
+
+https://github.com/younglaker/octjs/tree/master/doc
 
 #Overview
 
@@ -54,6 +54,9 @@ Include the oct.js file in your HTML.
 - `String.lengthdb()` Count the double bytes words.
 - `.width()` Get or set width.
 
+# Structure
+
+http://laker.me/blog/2015/03/15/15_0315_octjs_1/
 
 ## To do 
 
