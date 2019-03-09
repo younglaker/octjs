@@ -5,7 +5,7 @@ Include the oct.js file in your HTML.
 
 https://github.com/younglaker/octjs/tree/master/doc
 
-#Overview
+# Overview
 
 - `.addEvent()` Add event.
 - `.add()` Add id or class in a object.
@@ -56,6 +56,7 @@ https://github.com/younglaker/octjs/tree/master/doc
 
 # Structure
 
+How to write a JavaScript library
 http://laker.me/blog/2015/03/15/15_0315_octjs_1/
 
 ## To do 
